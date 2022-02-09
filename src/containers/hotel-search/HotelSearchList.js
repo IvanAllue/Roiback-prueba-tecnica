@@ -1,9 +1,9 @@
+import {FilterElements} from "../../componenets/FilterElements";
+
 export const HotelSearchList = () => {
     return (
         <div>
-            <p>
-                Componente hotel search
-            </p>
+            <FilterElements></FilterElements>
         </div>
 
     )
