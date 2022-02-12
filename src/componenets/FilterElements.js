@@ -55,7 +55,7 @@ export class FilterElements extends Component {
         })
     }
 
-    onCheckAvailability(){
+    onCheckAvailability() {
         //TODO: On button click event
     }
 
@@ -79,16 +79,14 @@ export class FilterElements extends Component {
                     label="Check in"
                     value={checkInDate}
                     minDate={moment()}
-                    onDateSelected={this.onCheckInChange}
-                >
-
+                    onDateSelected={this.onCheckInChange}>
                 </RoibackDatePicker>
 
                 <RoibackDatePicker
                     label="Check out"
-                    value={checkOutDate}>
+                    value={checkOutDate}
                     minDate={moment(checkInDate.format()).add(1, 'd')}
-                    onDateSelected={this.onCheckOutChange}
+                    onDateSelected={this.onCheckOutChange}>
                 </RoibackDatePicker>
 
                 <Button onClick={this.onCheckAvailability}>
