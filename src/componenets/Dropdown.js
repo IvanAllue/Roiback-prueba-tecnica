@@ -1,18 +1,18 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import styled from "styled-components";
-
+import {COLORS} from "../config/Colors";
 
 const StyledFormControl = styled(FormControl)`
   min-width: 14rem !important;
   max-height: 5.7rem !important;
 
   & .css-cio0x1-MuiInputBase-root-MuiFilledInput-root:after {
-    border-color: #019592;
+    border-color: ${COLORS.PRIMARY_COLOR};
   }
 
 
   & > label {
-    color: #019592 !important;
+    color: ${COLORS.PRIMARY_COLOR} !important;
   }
 `
 
