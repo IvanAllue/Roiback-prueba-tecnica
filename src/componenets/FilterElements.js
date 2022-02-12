@@ -29,6 +29,11 @@ export class FilterElements extends Component {
         };
     }
 
+    onHotelSelected(dropdownEvent) {
+        this.setState({
+            hotelSelected: dropdownEvent.target.value
+        })
+    }
 
     onCheckInChange = (newCheckInDate) => {
         const {checkOutDate} = this.state;
@@ -50,6 +55,10 @@ export class FilterElements extends Component {
         })
     }
 
+    onCheckAvailability(){
+        //TODO: On button click event
+    }
+
 
     render() {
         const pruebaOpciones = [
@@ -62,7 +71,7 @@ export class FilterElements extends Component {
 
         return (
             <FiltersContainer>
-                <Dropdown label="Select a hotel" options={pruebaOpciones} onOptionSelected={this.onOptionSelected}>
+                <Dropdown label="Select a hotel" options={pruebaOpciones} onOptionSelected={this.onHotelSelected}>
 
                 </Dropdown>
 
@@ -82,7 +91,7 @@ export class FilterElements extends Component {
                     onDateSelected={this.onCheckOutChange}
                 </RoibackDatePicker>
 
-                <Button>
+                <Button onClick={this.onCheckAvailability}>
                     CHECK AVAILABILITY
                 </Button>
             </FiltersContainer>
