@@ -6,12 +6,35 @@ import moment from "moment";
 
 
 export class FilterElements extends Component {
-    onOptionSelected(event) {
-        console.log(event.target.value)
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            hotelSelected: null,
+            checkInDate: moment(),
+            checkOutDate: moment().add(1, 'day')
+        };
     }
 
-    onDateSelected(event) {
-        console.log(event)
+
+    onCheckInChange = (newCheckInDate) => {
+        const {checkOutDate} = this.state;
+        if (moment(newCheckInDate).isAfter(checkOutDate)) {
+            this.setState({
+                checkInDate: moment(newCheckInDate),
+                checkOutDate: moment(newCheckInDate).add(1, 'd')
+            })
+        } else {
+            this.setState({
+                checkInDate: moment(newCheckInDate)
+            })
+        }
+    }
+
+    onCheckOutChange = (newCheckOutDate) => {
+        this.setState({
+            checkOutDate: moment(newCheckOutDate)
+        })
     }
 
     render() {
@@ -21,6 +44,7 @@ export class FilterElements extends Component {
             {name: 'Nombre 3'},
             {code: 'Hotel 4'},
         ];
+        const {checkInDate, checkOutDate} = this.state;
 
         return (
             <div>
@@ -32,9 +56,21 @@ export class FilterElements extends Component {
 
                 </Dropdown>
 
-                <RoibackDatePicker onDateSelected={this.onDateSelected} label="Check in"></RoibackDatePicker>
-                <RoibackDatePicker onDateSelected={this.onDateSelected} label="Check out"
-                                   minDate={moment().add(1, 'd').toDate()}></RoibackDatePicker>
+                <RoibackDatePicker
+                    label="Check in"
+                    value={checkInDate}
+                    minDate={moment()}
+                    onDateSelected={this.onCheckInChange}
+                  >
+
+                </RoibackDatePicker>
+
+                <RoibackDatePicker
+                    label="Check out"
+                    value={checkOutDate}>
+                    minDate={moment(checkInDate.format()).add(1, 'd')}
+                    onDateSelected={this.onCheckOutChange}
+                </RoibackDatePicker>
             </div>
         )
     }
