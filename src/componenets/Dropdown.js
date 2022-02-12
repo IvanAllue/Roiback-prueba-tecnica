@@ -4,7 +4,6 @@ import {COLORS} from "../config/Colors";
 
 const StyledFormControl = styled(FormControl)`
   min-width: 14rem !important;
-  max-height: 5.7rem !important;
 
   & .css-cio0x1-MuiInputBase-root-MuiFilledInput-root:after {
     border-color: ${COLORS.PRIMARY_COLOR};

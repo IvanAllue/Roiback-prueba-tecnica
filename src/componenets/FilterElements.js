@@ -3,7 +3,20 @@ import {Dropdown} from "./Dropdown";
 import {Component} from "react";
 import RoibackDatePicker from "./RoibackDatePicker";
 import moment from "moment";
+import styled from "styled-components";
 
+const FiltersContainer = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 2.5rem;
+
+  @media (max-width: 950px) {
+    flex-direction: column;
+    gap: 1rem;
+  }
+`
 
 export class FilterElements extends Component {
     constructor(props) {
@@ -37,6 +50,7 @@ export class FilterElements extends Component {
         })
     }
 
+
     render() {
         const pruebaOpciones = [
             {code: 'Hotel 1', name: 'Nombre 1'},
@@ -47,11 +61,7 @@ export class FilterElements extends Component {
         const {checkInDate, checkOutDate} = this.state;
 
         return (
-            <div>
-                <Button>
-                    CHECK AVAILABILITY
-                </Button>
-
+            <FiltersContainer>
                 <Dropdown label="Select a hotel" options={pruebaOpciones} onOptionSelected={this.onOptionSelected}>
 
                 </Dropdown>
@@ -61,7 +71,7 @@ export class FilterElements extends Component {
                     value={checkInDate}
                     minDate={moment()}
                     onDateSelected={this.onCheckInChange}
-                  >
+                >
 
                 </RoibackDatePicker>
 
@@ -71,7 +81,11 @@ export class FilterElements extends Component {
                     minDate={moment(checkInDate.format()).add(1, 'd')}
                     onDateSelected={this.onCheckOutChange}
                 </RoibackDatePicker>
-            </div>
+
+                <Button>
+                    CHECK AVAILABILITY
+                </Button>
+            </FiltersContainer>
         )
     }
 }
