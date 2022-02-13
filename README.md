@@ -1,4 +1,4 @@
-<<<<<<< HEAD
+
 # Roiback-prueba-tecnica
 =======
 # Getting Started with Create React App
