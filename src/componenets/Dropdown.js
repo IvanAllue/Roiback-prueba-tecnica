@@ -1,5 +1,5 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import styled from "styled-components";
+import styled, {css} from "styled-components";
 import {COLORS} from "../config/Colors";
 
 const StyledFormControl = styled(FormControl)`
@@ -13,6 +13,12 @@ const StyledFormControl = styled(FormControl)`
   & > label {
     color: ${COLORS.PRIMARY_COLOR} !important;
   }
+
+  ${({error}) => error && css`
+    & > label {
+      color: ${COLORS.RED } !important;
+    }
+  `}
 `
 
 const StyledMenuItem = styled(MenuItem)`
@@ -36,13 +42,13 @@ function dropdownOptions(params) {
 
 export function Dropdown(props) {
     return (
-        <StyledFormControl variant="filled" sx={{m: 1, minWidth: 140}}>
+        <StyledFormControl variant="filled" sx={{m: 1, minWidth: 140}} error={props.error}>
             <InputLabel id="demo-simple-select-filled-label">{props.label}</InputLabel>
 
             <Select
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
-                defaultValue=''
+                value={props.value ? props.value : ''}
                 onChange={props.onOptionSelected}
             >
                 {dropdownOptions(props.options)}

@@ -25,13 +25,15 @@ export class FilterElements extends Component {
         this.state = {
             hotelSelected: null,
             checkInDate: moment(),
-            checkOutDate: moment().add(1, 'day')
+            checkOutDate: moment().add(1, 'day'),
+            error: false
         };
     }
 
-    onHotelSelected(dropdownEvent) {
+    onHotelSelected = (dropdownEvent) => {
         this.setState({
-            hotelSelected: dropdownEvent.target.value
+            hotelSelected: dropdownEvent.target.value,
+            error: false
         })
     }
 
@@ -55,8 +57,21 @@ export class FilterElements extends Component {
         })
     }
 
-    onCheckAvailability() {
-        //TODO: On button click event
+    onCheckAvailability = () => {
+        if (this.state.hotelSelected) {
+            if (this.props.onSendAvailability) {
+                this.props.onSendAvailability({
+                    hotelSelected: this.state.hotelSelected,
+                    checkInDate: this.state.hotecheckInDatelSelected,
+                    checkOutDate: this.state.checkOutDate,
+                })
+            }
+
+        } else {
+            this.setState({
+                error: true
+            })
+        }
     }
 
 
@@ -71,7 +86,12 @@ export class FilterElements extends Component {
 
         return (
             <FiltersContainer>
-                <Dropdown label="Select a hotel" options={pruebaOpciones} onOptionSelected={this.onHotelSelected}>
+                <Dropdown
+                    label="Select a hotel"
+                    options={pruebaOpciones}
+                    onOptionSelected={this.onHotelSelected}
+                    value={this.state.hotelSelected}
+                    error={this.state.error}>
 
                 </Dropdown>
 
