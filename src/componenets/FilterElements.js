@@ -62,7 +62,7 @@ export class FilterElements extends Component {
             if (this.props.onSendAvailability) {
                 this.props.onSendAvailability({
                     hotelSelected: this.state.hotelSelected,
-                    checkInDate: this.state.hotecheckInDatelSelected,
+                    checkInDate: this.state.checkInDate,
                     checkOutDate: this.state.checkOutDate,
                 })
             }
