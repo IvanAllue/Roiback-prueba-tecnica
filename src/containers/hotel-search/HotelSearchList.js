@@ -2,6 +2,7 @@ import {FilterElements} from "../../componenets/FilterElements";
 import {SearchFailed} from "../../componenets/NoResultsComponent";
 import styled from "styled-components";
 import {Component} from "react";
+import {RoomsList} from "../../componenets/RoomsList";
 
 const Results = styled.div`
   padding-top: 5rem;
@@ -14,6 +15,34 @@ const Results = styled.div`
 `
 
 export class HotelSearchList extends Component {
+    mockedAvailabilityResponse = {
+        "rooms": [
+            {
+                "room_1": {
+                    "rates": [
+                        {
+                            "rate_1": {
+                                "total_price": 90.24,
+                                "breakdown": [
+                                    {
+                                        "2022-01-01": {
+                                            "price": 45.12,
+                                            "allotment": 3
+                                        },
+                                        "2022-01-02": {
+                                            "price": 45.12,
+                                            "allotment": 2
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    }
+
     constructor(props) {
         super(props);
 
@@ -25,13 +54,14 @@ export class HotelSearchList extends Component {
 
     onSendAvailability = (searchQuery) => {
         this.setState({
-            searchQuery
+            searchQuery,
+            roomList: this.mockedAvailabilityResponse.rooms
         })
     }
 
     getResultsComponent() {
         if (this.state && this.state.roomList && this.state.roomList.length > 0) {
-
+            return <RoomsList roomList={this.state.roomList} searchQuery={this.state.searchQuery}/>
         } else if (this.state.searchQuery) {
             return (
                 <SearchFailed
