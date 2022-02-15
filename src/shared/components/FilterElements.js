@@ -26,7 +26,6 @@ export function FilterElements(props) {
 
 
     const onHotelSelected = (dropdownEvent) => {
-        console.log(dropdownEvent.target.value)
         setHotelSelected(dropdownEvent.target.value)
         changeErrorState(false)
     }

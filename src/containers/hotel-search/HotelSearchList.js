@@ -4,6 +4,7 @@ import styled from "styled-components";
 import {Component} from "react";
 import {RoomsList} from "./components/RoomsList";
 import {connect} from "react-redux";
+import {REDUX_CONSTANTS} from "../../shared/redux/constants";
 
 const Results = styled.div`
   padding-top: 5rem;
@@ -26,6 +27,7 @@ class HotelSearchList extends Component {
     }
 
     onSendAvailability = (searchQuery) => {
+        this.props.getAvailableRooms()
         this.setState({
             searchQuery,
             roomList: []
@@ -33,9 +35,9 @@ class HotelSearchList extends Component {
     }
 
     getResultsComponent() {
-        if (this.state && this.state.roomList && this.state.roomList.length > 0) {
+        if (this.props.rooms && this.props.rooms.length > 0) {
             // Tenemos resultados.
-            return <RoomsList roomList={this.state.roomList} searchQuery={this.state.searchQuery}/>
+            return <RoomsList roomList={this.props.rooms} searchQuery={this.state.searchQuery}/>
         } else if (this.state.searchQuery) {
             // No tenemos resultados y hemos ejecutado una query.
             return (
@@ -72,13 +74,15 @@ class HotelSearchList extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        hotels: state.hotels
+        hotels: state.hotelReducerGetHotelList.hotels,
+        rooms: state.hotelReducerGetAvailableRooms.rooms
     }
 }
 
 
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch) => {
     return {
+        getAvailableRooms: () => dispatch({type: REDUX_CONSTANTS.GET_AVAILABLE_ROOMS})
     }
 }
 
