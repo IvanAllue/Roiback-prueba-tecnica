@@ -39,6 +39,46 @@ export class HotelSearchList extends Component {
                         }
                     ]
                 }
+            },
+            {
+                "room_2": {
+                    "rates": [
+                        {
+                            "rate_1": {
+                                "total_price": 103.24,
+                                "breakdown": [
+                                    {
+                                        "2022-01-01": {
+                                            "price": 45.12,
+                                            "allotment": 3
+                                        },
+                                        "2022-01-02": {
+                                            "price": 45.12,
+                                            "allotment": 2
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        {
+                            "rate_2": {
+                                "total_price": 128.24,
+                                "breakdown": [
+                                    {
+                                        "2022-01-01": {
+                                            "price": 45.12,
+                                            "allotment": 3
+                                        },
+                                        "2022-01-02": {
+                                            "price": 45.12,
+                                            "allotment": 2
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    ]
+                }
             }
         ]
     }
@@ -84,7 +124,7 @@ export class HotelSearchList extends Component {
 
         return (
             <div>
-                <FilterElements onSendAvailability={this.onSendAvailability}></FilterElements>
+                <FilterElements onSendAvailability={this.onSendAvailability}/>
                 <Results>
                     {this.getResultsComponent()}
                 </Results>
