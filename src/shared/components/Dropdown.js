@@ -33,7 +33,7 @@ function dropdownOptions(params) {
         const optionCode = option.code ? option.code : optionName;
 
         return (
-            <StyledMenuItem key={optionCode} value={optionName}>
+            <StyledMenuItem key={optionCode} value={optionCode}>
                 {optionName}
             </StyledMenuItem>
         )
