@@ -1,6 +1,6 @@
 import SearchIcon from '@mui/icons-material/Search';
 import styled from "styled-components";
-import {COLORS} from "../config/Colors";
+import {COLORS} from "../../config/Colors";
 
 const SearchFailedContainer = styled.div`
   display: flex;
@@ -35,7 +35,7 @@ export function SearchFailed(props = {
 
     return (
         <SearchFailedContainer>
-            <SearchFailedIcon></SearchFailedIcon>
+            <SearchFailedIcon/>
             <SearchFailedTitle>
                 {props.title}
             </SearchFailedTitle>

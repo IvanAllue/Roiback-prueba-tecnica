@@ -1,8 +1,8 @@
-import {FilterElements} from "../../componenets/FilterElements";
-import {SearchFailed} from "../../componenets/NoResultsComponent";
+import {FilterElements} from "../../shared/components/FilterElements";
+import {SearchFailed} from "../../shared/components/NoResultsComponent";
 import styled from "styled-components";
 import {Component} from "react";
-import {RoomsList} from "../../componenets/RoomsList";
+import {RoomsList} from "./components/RoomsList";
 
 const Results = styled.div`
   padding-top: 5rem;
@@ -101,8 +101,10 @@ export class HotelSearchList extends Component {
 
     getResultsComponent() {
         if (this.state && this.state.roomList && this.state.roomList.length > 0) {
+            // Tenemos resultados.
             return <RoomsList roomList={this.state.roomList} searchQuery={this.state.searchQuery}/>
         } else if (this.state.searchQuery) {
+            // No tenemos resultados y hemos ejecutado una query.
             return (
                 <SearchFailed
                     title="CHECK AVAILABILITY"
@@ -111,6 +113,7 @@ export class HotelSearchList extends Component {
                 />
             )
         } else {
+            // No tenemos resultados y aun no hemos buscado nada.
             return (
                 <SearchFailed
                     title="CHECK AVAILABILITY"

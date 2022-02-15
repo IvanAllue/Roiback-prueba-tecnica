@@ -1,6 +1,6 @@
 import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
 import styled, {css} from "styled-components";
-import {COLORS} from "../config/Colors";
+import {COLORS} from "../../config/Colors";
 
 const StyledFormControl = styled(FormControl)`
   min-width: 14rem !important;

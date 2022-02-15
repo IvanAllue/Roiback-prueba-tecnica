@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {COLORS} from "../config/Colors";
+import {COLORS} from "../../../config/Colors";
 
 const StyledRoom = styled.div`
   max-width: 95rem;

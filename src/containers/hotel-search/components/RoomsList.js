@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import {COLORS} from "../config/Colors";
+import {COLORS} from "../../../config/Colors";
 import {Room} from "./Room";
 
 

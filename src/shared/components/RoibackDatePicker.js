@@ -4,10 +4,9 @@ import {unstable_createMuiStrictModeTheme as createMuiTheme} from '@material-ui/
 import {DatePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
 import DateFnsUtils from '@date-io/date-fns';
 import {ThemeProvider} from "@material-ui/styles";
-import {useEffect, useState} from "react";
 import moment from "moment";
 import styled from "styled-components";
-import {COLORS} from "../config/Colors";
+import {COLORS} from "../../config/Colors";
 import {es} from "date-fns/locale";
 
 const StyledDatePicker = styled(DatePicker)`
