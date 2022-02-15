@@ -24,8 +24,8 @@ export class FilterElements extends Component {
 
         this.state = {
             hotelSelected: null,
-            checkInDate: moment(),
-            checkOutDate: moment().add(1, 'day'),
+            checkInDate: moment().startOf('day'),
+            checkOutDate: moment().startOf('day').add(1, 'day'),
             error: false
         };
     }
@@ -41,19 +41,19 @@ export class FilterElements extends Component {
         const {checkOutDate} = this.state;
         if (moment(newCheckInDate).isAfter(checkOutDate)) {
             this.setState({
-                checkInDate: moment(newCheckInDate),
-                checkOutDate: moment(newCheckInDate).add(1, 'd')
+                checkInDate: moment(newCheckInDate).startOf('day'),
+                checkOutDate: moment(newCheckInDate).startOf('day').add(1, 'd')
             })
         } else {
             this.setState({
-                checkInDate: moment(newCheckInDate)
+                checkInDate: moment(newCheckInDate).startOf('day')
             })
         }
     }
 
     onCheckOutChange = (newCheckOutDate) => {
         this.setState({
-            checkOutDate: moment(newCheckOutDate)
+            checkOutDate: moment(newCheckOutDate).startOf('day')
         })
     }
 
