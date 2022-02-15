@@ -1,9 +1,9 @@
 import {Button} from "./Button";
 import {Dropdown} from "./Dropdown";
-import {Component} from "react";
 import RoibackDatePicker from "./RoibackDatePicker";
 import moment from "moment";
 import styled from "styled-components";
+import {useState} from "react";
 
 const FiltersContainer = styled.div`
   display: flex;
@@ -18,95 +18,78 @@ const FiltersContainer = styled.div`
   }
 `
 
-export class FilterElements extends Component {
-    constructor(props) {
-        super(props);
+export function FilterElements(props) {
+    const [hotelSelected, setHotelSelected] = useState(null);
+    const [checkInDate, changeCheckInState] = useState(moment().startOf('day'));
+    const [checkOutDate, changeCheckOutState] = useState(moment().startOf('day').add(1, 'day'));
+    const [error, changeErrorState] = useState(false);
 
-        this.state = {
-            hotelSelected: null,
-            checkInDate: moment().startOf('day'),
-            checkOutDate: moment().startOf('day').add(1, 'day'),
-            error: false
-        };
+
+    const onHotelSelected = (dropdownEvent) => {
+        console.log(dropdownEvent.target.value)
+        setHotelSelected(dropdownEvent.target.value)
+        changeErrorState(false)
     }
 
-    onHotelSelected = (dropdownEvent) => {
-        this.setState({
-            hotelSelected: dropdownEvent.target.value,
-            error: false
-        })
-    }
-
-    onCheckInChange = (newCheckInDate) => {
+    const onCheckInChange = (newCheckInDate) => {
         const {checkOutDate} = this.state;
         if (moment(newCheckInDate).isAfter(checkOutDate)) {
-            this.setState({
-                checkInDate: moment(newCheckInDate).startOf('day'),
-                checkOutDate: moment(newCheckInDate).startOf('day').add(1, 'd')
-            })
+            changeCheckInState(moment(newCheckInDate).startOf('day'))
+            changeCheckOutState(moment(newCheckInDate).startOf('day').add(1, 'd'))
         } else {
-            this.setState({
-                checkInDate: moment(newCheckInDate).startOf('day')
-            })
+            changeCheckInState(moment(newCheckInDate).startOf('day'))
         }
     }
 
-    onCheckOutChange = (newCheckOutDate) => {
-        this.setState({
-            checkOutDate: moment(newCheckOutDate).startOf('day')
-        })
+    const onCheckOutChange = (newCheckOutDate) => {
+        changeCheckOutState(moment(newCheckOutDate).startOf('day'))
     }
 
-    onCheckAvailability = () => {
-        if (this.state.hotelSelected) {
-            if (this.props.onSendAvailability) {
-                this.props.onSendAvailability({
-                    hotelSelected: this.state.hotelSelected,
-                    checkInDate: this.state.checkInDate,
-                    checkOutDate: this.state.checkOutDate,
+    const onCheckAvailability = () => {
+        if (hotelSelected) {
+            if (props.onSendAvailability) {
+                props.onSendAvailability({
+                    hotelSelected,
+                    checkInDate,
+                    checkOutDate,
                 })
             }
-
         } else {
-            this.setState({
-                error: true
-            })
+            changeErrorState(true)
         }
     }
 
 
-    render() {
-        const {checkInDate, checkOutDate} = this.state;
+    return (
 
-        return (
-            <FiltersContainer>
-                <Dropdown
-                    label="Select a hotel"
-                    options={this.props.hotels}
-                    onOptionSelected={this.onHotelSelected}
-                    value={this.state.hotelSelected}
-                    error={this.state.error}>
+        <FiltersContainer>
+            <Dropdown
+                label="Select a hotel"
+                options={props.hotels}
+                onOptionSelected={onHotelSelected}
+                value={hotelSelected}
+                error={error}>
 
-                </Dropdown>
+            </Dropdown>
 
-                <RoibackDatePicker
-                    label="Check in"
-                    value={checkInDate}
-                    minDate={moment()}
-                    onDateSelected={this.onCheckInChange}>
-                </RoibackDatePicker>
+            <RoibackDatePicker
+                label="Check in"
+                value={checkInDate}
+                minDate={moment()}
+                onDateSelected={onCheckInChange}>
+            </RoibackDatePicker>
 
-                <RoibackDatePicker
-                    label="Check out"
-                    value={checkOutDate}
-                    minDate={moment(checkInDate.format()).add(1, 'd')}
-                    onDateSelected={this.onCheckOutChange}>
-                </RoibackDatePicker>
+            <RoibackDatePicker
+                label="Check out"
+                value={checkOutDate}
+                minDate={moment(checkInDate.format()).add(1, 'd')}
+                onDateSelected={onCheckOutChange}>
+            </RoibackDatePicker>
 
-                <Button onClick={this.onCheckAvailability}>
-                    CHECK AVAILABILITY
-                </Button>
-            </FiltersContainer>
-        )
-    }
+            <Button onClick={onCheckAvailability}>
+                CHECK AVAILABILITY
+            </Button>
+        </FiltersContainer>
+    )
+
 }
