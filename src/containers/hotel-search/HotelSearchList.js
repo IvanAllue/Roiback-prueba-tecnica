@@ -3,6 +3,7 @@ import {SearchFailed} from "../../shared/components/NoResultsComponent";
 import styled from "styled-components";
 import {Component} from "react";
 import {RoomsList} from "./components/RoomsList";
+import {connect} from "react-redux";
 
 const Results = styled.div`
   padding-top: 5rem;
@@ -14,75 +15,7 @@ const Results = styled.div`
   }
 `
 
-export class HotelSearchList extends Component {
-    mockedAvailabilityResponse = {
-        "rooms": [
-            {
-                "room_1": {
-                    "rates": [
-                        {
-                            "rate_1": {
-                                "total_price": 90.24,
-                                "breakdown": [
-                                    {
-                                        "2022-01-01": {
-                                            "price": 45.12,
-                                            "allotment": 3
-                                        },
-                                        "2022-01-02": {
-                                            "price": 45.12,
-                                            "allotment": 2
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            },
-            {
-                "room_2": {
-                    "rates": [
-                        {
-                            "rate_1": {
-                                "total_price": 103.24,
-                                "breakdown": [
-                                    {
-                                        "2022-01-01": {
-                                            "price": 45.12,
-                                            "allotment": 3
-                                        },
-                                        "2022-01-02": {
-                                            "price": 45.12,
-                                            "allotment": 2
-                                        }
-                                    }
-                                ]
-                            }
-                        },
-                        {
-                            "rate_2": {
-                                "total_price": 128.24,
-                                "breakdown": [
-                                    {
-                                        "2022-01-01": {
-                                            "price": 45.12,
-                                            "allotment": 3
-                                        },
-                                        "2022-01-02": {
-                                            "price": 45.12,
-                                            "allotment": 2
-                                        }
-                                    }
-                                ]
-                            }
-                        }
-                    ]
-                }
-            }
-        ]
-    }
-
+class HotelSearchList extends Component {
     constructor(props) {
         super(props);
 
@@ -95,7 +28,7 @@ export class HotelSearchList extends Component {
     onSendAvailability = (searchQuery) => {
         this.setState({
             searchQuery,
-            roomList: this.mockedAvailabilityResponse.rooms
+            roomList: []
         })
     }
 
@@ -127,7 +60,7 @@ export class HotelSearchList extends Component {
 
         return (
             <div>
-                <FilterElements onSendAvailability={this.onSendAvailability}/>
+                <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels}/>
                 <Results>
                     {this.getResultsComponent()}
                 </Results>
@@ -136,3 +69,18 @@ export class HotelSearchList extends Component {
         )
     }
 }
+
+const mapStateToProps = (state) => {
+    return {
+        hotels: state.hotels
+    }
+}
+
+
+const mapDispatchToProps = () => {
+    return {
+    }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(HotelSearchList);

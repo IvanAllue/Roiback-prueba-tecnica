@@ -76,19 +76,13 @@ export class FilterElements extends Component {
 
 
     render() {
-        const pruebaOpciones = [
-            {code: 'Hotel 1', name: 'Nombre 1'},
-            {code: 'Hotel 2', name: 'Nombre 2'},
-            {name: 'Nombre 3'},
-            {code: 'Hotel 4'},
-        ];
         const {checkInDate, checkOutDate} = this.state;
 
         return (
             <FiltersContainer>
                 <Dropdown
                     label="Select a hotel"
-                    options={pruebaOpciones}
+                    options={this.props.hotels}
                     onOptionSelected={this.onHotelSelected}
                     value={this.state.hotelSelected}
                     error={this.state.error}>

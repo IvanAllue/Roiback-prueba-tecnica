@@ -1,5 +1,5 @@
 import './App.css';
-import {HotelSearchList} from "./containers/hotel-search/HotelSearchList";
+import HotelSearchList from "./containers/hotel-search/HotelSearchList";
 
 function App() {
   return (
