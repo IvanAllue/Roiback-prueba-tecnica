@@ -1,6 +1,7 @@
 import {createStore} from "redux";
-import {getHotelList} from "../reducers/Hotel";
+import {reducerList} from "../reducers";
 
-const store = createStore(getHotelList)
+
+const store = createStore(reducerList)
 
 export default store;
