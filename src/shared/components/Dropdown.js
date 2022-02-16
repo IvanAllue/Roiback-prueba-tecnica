@@ -16,7 +16,7 @@ const StyledFormControl = styled(FormControl)`
 
   ${({error}) => error && css`
     & > label {
-      color: ${COLORS.RED } !important;
+      color: ${COLORS.RED} !important;
     }
   `}
 `
@@ -27,6 +27,11 @@ const StyledMenuItem = styled(MenuItem)`
   }
 `
 
+/**
+ * Devuelve cada una de las opciones del Dropdown.
+ * @param params {{code: string; name:string;}[]} - Lista de opciones formadas por {code} (return) y {name} (pintar).
+ * @returns {JSX.Element<StyledMenuItem>} - Opciones del dropdown.
+ */
 function dropdownOptions(params) {
     return params.map((option) => {
         const optionName = option.name ? option.name : option.code ? option.code : '';
@@ -40,6 +45,18 @@ function dropdownOptions(params) {
     })
 }
 
+/**
+ *
+ * @param props {{
+ *     error: boolean;
+ *     label: string;
+ *     value: string;
+ *     onOptionSelected: function();
+ *     options: {code: string; name:string;}[]
+ * }} - Opciones configurables del Dropdown.
+ * @returns {JSX.Element<StyledFormControl>} - Dropdown de Material UI con estilos.
+ * @constructor
+ */
 export function Dropdown(props) {
     return (
         <StyledFormControl variant="filled" sx={{m: 1, minWidth: 140}} error={props.error}>

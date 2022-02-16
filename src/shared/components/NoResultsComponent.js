@@ -27,6 +27,16 @@ const SearchFailedSubtitle = styled.p`
   margin-top: 1rem;
 `
 
+/**
+ * Muestra un elemento configurable que indica que no hay hoteles. Se puede cambiar el titulo y subtitulo para
+ * notificar el motivo.
+ * @param props {{
+ *     title: string;
+ *     subtitle:string;
+ * }}
+ * @returns {JSX.Element<SearchFailedContainer>}
+ * @constructor
+ */
 export function SearchFailed(props = {
     title: '',
     subtitle: ''

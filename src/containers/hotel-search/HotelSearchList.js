@@ -60,6 +60,7 @@ class HotelSearchList extends Component {
 
     render() {
 
+
         return (
             <div>
                 <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels}/>

@@ -18,20 +18,37 @@ const FiltersContainer = styled.div`
   }
 `
 
+/**
+ * Pinta y controla los elementos de filtrado y al pulsat check aviavility envia una query formada para buscar
+ * habitaciones.
+ * @param props {{
+ *     onSendAvailability: function(),
+ *     hotels: {code: string; name: string} []
+ * }} - Hoteles a mostrar en el dropdown y funcion a ejecutar cuando se pulsa el boton.
+ * @returns {JSX.Element<FiltersContainer>}
+ * @constructor
+ */
 export function FilterElements(props) {
     const [hotelSelected, setHotelSelected] = useState(null);
     const [checkInDate, changeCheckInState] = useState(moment().startOf('day'));
     const [checkOutDate, changeCheckOutState] = useState(moment().startOf('day').add(1, 'day'));
     const [error, changeErrorState] = useState(false);
 
-
+    /**
+     * Pone error como falso para quitar el efecto rojo y guarda en el estado el hotel seleccionado.
+     * @param dropdownEvent {any} - Objeto de Material UI que contiene el valor seleccionado en el Dropdown
+     */
     const onHotelSelected = (dropdownEvent) => {
         setHotelSelected(dropdownEvent.target.value)
         changeErrorState(false)
     }
 
+    /**
+     * Se ejecuta cuando el usuario cambia la fecha de check in en el DatePicker. Si la fecha de checkIn es mayor que
+     * la de checkOut aplazamos la fecha de checkOut un dia despues de la de checkIn.
+     * @param newCheckInDate {string} - Nueva fecha en formato String
+     */
     const onCheckInChange = (newCheckInDate) => {
-        const {checkOutDate} = this.state;
         if (moment(newCheckInDate).isAfter(checkOutDate)) {
             changeCheckInState(moment(newCheckInDate).startOf('day'))
             changeCheckOutState(moment(newCheckInDate).startOf('day').add(1, 'd'))
@@ -40,10 +57,19 @@ export function FilterElements(props) {
         }
     }
 
+    /**
+     * Se ejecuta cuando el usuario cambia la fecha de check out en el DatePicker. Almacena la nueva fecha para el
+     * checkOut
+     * @param newCheckOutDate {string} - Nueva fecha en formato String
+     */
     const onCheckOutChange = (newCheckOutDate) => {
         changeCheckOutState(moment(newCheckOutDate).startOf('day'))
     }
 
+    /**
+     * Se ejecuta cuando se pulsa el boton de check availability. Si se selecciono un hotel se envia la query, sino se
+     * indica al usuario que debe seleccionar un hotel poniendo error a true
+     */
     const onCheckAvailability = () => {
         if (hotelSelected) {
             if (props.onSendAvailability) {
@@ -60,7 +86,6 @@ export function FilterElements(props) {
 
 
     return (
-
         <FiltersContainer>
             <Dropdown
                 label="Select a hotel"

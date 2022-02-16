@@ -22,6 +22,10 @@ const StyledDatePicker = styled(DatePicker)`
     border-color: ${COLORS.PRIMARY_COLOR};
   }
 `
+
+/**
+ * Aplica los estilos de Material en el DatePicker.
+ */
 const materialTheme = createMuiTheme({
     overrides: {
         MuiPickersDay: {
@@ -42,6 +46,18 @@ const materialTheme = createMuiTheme({
 });
 
 
+/**
+ *
+ * @param props {{
+ *     placeholder: string;
+ *     label: string;
+ *     value: moment.Moment;
+ *      minDate: moment.Moment;
+ *     onDateSelected: function();
+ * }}
+ * @returns {JSX.Element}
+ * @constructor
+ */
 export default function RoibackDatePicker(props = {
     onDateSelected: () => {
     },
@@ -50,8 +66,6 @@ export default function RoibackDatePicker(props = {
     label: '',
     value: moment()
 }) {
-
-
     return (
         <MuiPickersUtilsProvider utils={DateFnsUtils} locale={es}>
             <ThemeProvider theme={materialTheme}>

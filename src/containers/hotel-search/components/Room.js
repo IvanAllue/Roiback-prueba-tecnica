@@ -32,29 +32,37 @@ const Fare = styled.div`
   }
 `
 
-
+/**
+ * Pinta la lista de Rates
+ * @param rates {RateDTO[]} - Lista de Rates dentro de la RoomDTO
+ * @returns {JSX.Element<Fare>[]} - Lista de Fare que contiene los rateName y totalPrice del rateName de la RoomDTO
+ */
 function getFareList(rates) {
     return rates.map((rate, rateIndex) => {
-        const rateName = Object.keys(rate)[0]
-
         return (
             <Fare key={rateIndex}>
-                <p>{rateName}</p>
-                <p>{rate[rateName].total_price}</p>
+                <p>{rate.rateName}</p>
+                <p>{rate.totalPrice}</p>
             </Fare>
         )
     })
 }
 
+/**
+ * Pinta la room y sus detalles
+ * @param props{{
+ *     roomData: RoomDTO
+ * }} - Habitacion a pintar
+ * @returns {JSX.Element<StyledRoom>} - Room y sus detalles
+ */
 export function Room(props) {
-    const roomName = Object.keys(props.roomData)[0]
     return (
         <StyledRoom>
             <RoomName>
-                {roomName}
+                {props.roomData.roomName}
             </RoomName>
             <div>
-                {getFareList(props.roomData[roomName].rates)}
+                {getFareList(props.roomData.roomRateList)}
             </div>
         </StyledRoom>
     )
