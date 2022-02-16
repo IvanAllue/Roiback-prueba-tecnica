@@ -21,6 +21,8 @@ const FiltersContainer = styled.div`
 /**
  * Pinta y controla los elementos de filtrado y al pulsat check aviavility envia una query formada para buscar
  * habitaciones.
+ * @version 1.2.3
+ * @author Ivan Allue Gonzalez
  * @param props {{
  *     onSendAvailability: function(),
  *     hotels: {code: string; name: string} []
@@ -49,7 +51,7 @@ export function FilterElements(props) {
      * @param newCheckInDate {string} - Nueva fecha en formato String
      */
     const onCheckInChange = (newCheckInDate) => {
-        if (moment(newCheckInDate).isAfter(checkOutDate)) {
+        if (moment(newCheckInDate).startOf("day").add(1, "h").isAfter(checkOutDate)) {
             changeCheckInState(moment(newCheckInDate).startOf('day'))
             changeCheckOutState(moment(newCheckInDate).startOf('day').add(1, 'd'))
         } else {

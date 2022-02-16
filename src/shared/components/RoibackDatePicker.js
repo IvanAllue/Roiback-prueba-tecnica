@@ -55,7 +55,7 @@ const materialTheme = createMuiTheme({
  *      minDate: moment.Moment;
  *     onDateSelected: function();
  * }}
- * @returns {JSX.Element}
+ * @returns {JSX.Element<MuiPickersUtilsProvider>} - DatePicker Material UI/Pickers
  * @constructor
  */
 export default function RoibackDatePicker(props = {

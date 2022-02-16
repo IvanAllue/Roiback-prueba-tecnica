@@ -102,7 +102,6 @@ export const hotelReducerGetAvailableRooms = (state = {rooms: []}, action) => {
             roomList.push(new RoomDTO({roomName, roomRateList}))
         })
 
-        console.log(roomList)
         return {
             rooms: roomList
         }
