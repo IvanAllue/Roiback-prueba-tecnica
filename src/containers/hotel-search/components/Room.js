@@ -1,6 +1,10 @@
 import styled from "styled-components";
 import {COLORS} from "../../../config/Colors";
 
+/**
+ * Div contededor de los elementos Room con estilos aplicados mediante Styled-Components.
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 const StyledRoom = styled.div`
   max-width: 95rem;
   width: 100%;
@@ -11,6 +15,11 @@ const StyledRoom = styled.div`
     margin-right: 2rem;
   }
 `
+
+/**
+ * Parrafo estilado con el nombre de la habitacion.
+ * @type {StyledComponent<"p", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 const RoomName = styled.p`
   padding: 1rem;
   height: 2.5rem;
@@ -21,6 +30,10 @@ const RoomName = styled.p`
   background-color: ${COLORS.BLACK};
 `
 
+/**
+ * Div contenedor de Fare.
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 const Fare = styled.div`
   display: flex;
   justify-content: space-between;
@@ -32,10 +45,13 @@ const Fare = styled.div`
   }
 `
 
-
+/**
+ * @param rates {any[]} - Lista de rates dentro de una room
+ * @returns <Fare> - Div con el rateName y el total_price
+ */
 function getFareList(rates) {
     return rates.map((rate, rateIndex) => {
-        const rateName = Object.keys(rate)[0]
+¡        const rateName = Object.keys(rate)[0]
 
         return (
             <Fare key={rateIndex}>
@@ -46,6 +62,11 @@ function getFareList(rates) {
     })
 }
 
+/**
+ * Recibe el objeto Room y lo formatea en JSX para mostrarlo.
+ * @param props {{roomData}} - Datos de la habitacion (de la room).
+ * @returns {JSX.Element<StyledRoom>} - Elemento JSX Room con la room name y una lista de Fare.
+ */
 export function Room(props) {
     const roomName = Object.keys(props.roomData)[0]
     return (
