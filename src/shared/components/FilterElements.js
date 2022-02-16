@@ -59,22 +59,15 @@ export function FilterElements(props) {
         }
     }
 
-    const pruebaOpciones = [
-        {code: 'Hotel1', name: 'Nombre 1'},
-        {code: 'Hotel2', name: 'Nombre 2'},
-        {name: 'Nombre 3'},
-        {code: 'Hotel4'},
-    ]
 
-    return (
-
-        <FiltersContainer>
-            <Dropdown
-                label="Select a hotel"
-                options={pruebaOpciones}
-                onOptionSelected={onHotelSelected}
-                value={hotelSelected}
-                error={error}>
+    return(
+            <FiltersContainer>
+                <Dropdown
+                    label="Select a hotel"
+                    options={props.hotels}
+                    onOptionSelected={onHotelSelected}
+                    value={hotelSelected}
+                    error={error}>
 
             </Dropdown>
 
