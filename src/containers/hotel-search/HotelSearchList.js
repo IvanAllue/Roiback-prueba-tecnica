@@ -4,7 +4,7 @@ import styled from "styled-components";
 import {Component} from "react";
 import {RoomsList} from "./components/RoomsList";
 import {connect} from "react-redux";
-import {REDUX_CONSTANTS} from "../../shared/redux/constants";
+import {REDUX_CONSTANTS} from "../../shared/redux/constants/constants";
 
 const Results = styled.div`
   padding-top: 5rem;
