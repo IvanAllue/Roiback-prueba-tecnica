@@ -21,7 +21,7 @@ const getDataFromFirebase = (PATH) => {
  */
 function* getHotels() {
     const hotelsDataSnapshot = yield call(getDataFromFirebase, 'hotels')
-    yield put({type: REDUX_CONSTANTS.SET_AVAILABLE_ROOMS_BY_FIREBASE, hotels: hotelsDataSnapshot.val()})
+    yield put({type: REDUX_CONSTANTS.SET_HOTELS_BY_FIREBASE, hotels: hotelsDataSnapshot.val()})
 }
 
 /**
