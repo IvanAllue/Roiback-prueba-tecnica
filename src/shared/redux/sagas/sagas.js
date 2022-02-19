@@ -1,6 +1,7 @@
 import {takeEvery} from 'redux-saga/effects'
 import {REDUX_CONSTANTS} from "../constants/constants";
 import {HotelSagas} from "./HotelSagas";
+import {TranslationsSagas} from "./TranslationSagas";
 
 /**
  * Contiene el listado de sagas (middlewares) que se ejecutan en la aplicaicon.
@@ -11,4 +12,5 @@ import {HotelSagas} from "./HotelSagas";
 export default function* sagaGenerator() {
     yield takeEvery(REDUX_CONSTANTS.GET_AVAILABLE_ROOMS, HotelSagas.getRooms)
     yield takeEvery(REDUX_CONSTANTS.GET_HOTELS, HotelSagas.getHotels)
+    yield takeEvery(REDUX_CONSTANTS.GET_TRANSLATIONS, TranslationsSagas.getTranslations)
 }

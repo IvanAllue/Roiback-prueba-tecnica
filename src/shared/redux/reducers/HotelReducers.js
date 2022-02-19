@@ -3,7 +3,7 @@ import {HotelDTO} from "../../Models/HotelDTO";
 import {RoomDTO} from "../../Models/RoomDTO";
 
 /**
- * Creado en {@link reducerList}, almacena en el store el listado de rooms de firebase. Ejecutado a traves
+ * Creado en {@link reducerList}, almacena en el store el listado de hotels de firebase. Ejecutado a traves
  * de {@link getHotels}.
  *
  * @param state {{ hotels: any[]}} - State en Redux, valor inicial [].

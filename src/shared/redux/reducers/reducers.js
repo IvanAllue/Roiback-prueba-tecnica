@@ -1,5 +1,6 @@
 import {combineReducers} from "redux";
 import {hotelReducerGetAvailableRooms, hotelReducerGetHotelList} from "./HotelReducers";
+import {translationReducerGetTranslations} from "./TranslationReducers";
 
 /**
  * Listado de reducers de redux, actualmente disponibles:
@@ -9,5 +10,6 @@ import {hotelReducerGetAvailableRooms, hotelReducerGetHotelList} from "./HotelRe
  */
 export const reducerList = combineReducers({
     hotelReducerGetHotelList,
-    hotelReducerGetAvailableRooms
+    hotelReducerGetAvailableRooms,
+    translationReducerGetTranslations,
 })

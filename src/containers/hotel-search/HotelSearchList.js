@@ -46,6 +46,7 @@ class HotelSearchList extends Component {
 
     componentDidMount() {
         this.props.getHotels()
+        this.props.getTranslations()
     }
 
     /**
@@ -128,7 +129,7 @@ class HotelSearchList extends Component {
      * Muestra los componentes en pantalla.
      * @method
      * @example:
-     * Caso 1: No hay hoteles en el store (props.hotels): Mostramos spinner
+     * Caso 1: No hay hoteles o traducciones en el store (props.hotels): Mostramos spinner
      *
      * Caso 2: Hay hoteles en el store (props.hotels) Mostramos FilterElements y getResultsComponent
      *
@@ -137,7 +138,11 @@ class HotelSearchList extends Component {
      * @returns {JSX.Element}
      */
     render() {
-        if (this.props.hotels && this.props.hotels.length > 0) {
+        if (
+            this.props.hotels &&
+            this.props.hotels.length > 0 &&
+            this.props.translations
+        ) {
             return (
                 <div>
                     <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels}/>
@@ -161,7 +166,8 @@ class HotelSearchList extends Component {
 const mapStateToProps = (state) => {
     return {
         hotels: state.hotelReducerGetHotelList.hotels,
-        rooms: state.hotelReducerGetAvailableRooms.rooms
+        rooms: state.hotelReducerGetAvailableRooms.rooms,
+        translations: state.translationReducerGetTranslations.translations
     }
 }
 
@@ -175,7 +181,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         getHotels: () => dispatch({type: REDUX_CONSTANTS.GET_HOTELS}),
-        getAvailableRooms: () => dispatch({type: REDUX_CONSTANTS.GET_AVAILABLE_ROOMS})
+        getAvailableRooms: () => dispatch({type: REDUX_CONSTANTS.GET_AVAILABLE_ROOMS}),
+        getTranslations: () => dispatch({type: REDUX_CONSTANTS.GET_TRANSLATIONS})
     }
 }
 

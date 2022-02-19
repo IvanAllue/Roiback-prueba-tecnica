@@ -1,6 +1,6 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
-import { getDatabase } from "firebase/database";
+import {child, get, getDatabase, ref} from "firebase/database";
 
 
 const firebaseConfig = {
@@ -15,10 +15,21 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-const analytics = getAnalytics(app);
 
 /**
  * Funcion para utilizar las herramientas y utilidades de Firebase utilizando el tipo de DB Realtime
  * @type {Database}
  */
 export const database = getDatabase(app)
+
+/**
+ * Ejecuta una preticion a Firebase solicitando el path (la query) rooms.
+ * @param PATH {'rooms'|'hotels'|'translations'} - Ruta de firebase a la que atacar
+ * @returns {Promise<DataSnapshot>} - Promise que, cuando finalice devuelve un DataSnapshot, con .val() podemos ver
+ * el contenido de la respuesta.
+ * @export
+ */
+export const getDataFromFirebase = (PATH) => {
+    const dbRef = ref(getDatabase());
+    return get(child(dbRef, PATH))
+}
