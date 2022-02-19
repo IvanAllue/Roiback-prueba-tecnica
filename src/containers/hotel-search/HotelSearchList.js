@@ -32,11 +32,18 @@ class HotelSearchList extends Component {
     /** @lends HotelSearchList.prototype */
     /**
      * @constructor
-     * @param props
+     * @param props {{
+     *      copys: any;
+     *      getAvailableRooms: function();
+     *      getHotels: function();
+     *      hotels: HotelDTO[];
+     *      rooms: RoomDTO[];
+     * }}
      */
     constructor(props) {
         super(props);
 
+        console.log(props)
         this.state = {
             roomList: [],
             loading: false,
@@ -46,7 +53,6 @@ class HotelSearchList extends Component {
 
     componentDidMount() {
         this.props.getHotels()
-        this.props.getTranslations()
     }
 
     /**
@@ -141,11 +147,16 @@ class HotelSearchList extends Component {
         if (
             this.props.hotels &&
             this.props.hotels.length > 0 &&
-            this.props.translations
+            this.props.copys
         ) {
             return (
                 <div>
-                    <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels}/>
+                    <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels} copys={{
+                        dropdownLabel: this.props.copys.selectAHotel,
+                        firstDatePickerLabel: this.props.copys.checkIn,
+                        secondDatePickerLabel: this.props.copys.checkOut,
+                        buttonLabel: this.props.copys.checkAvailability,
+                    }}/>
                     <Results>
                         {this.getResultsComponent()}
                     </Results>
@@ -163,11 +174,17 @@ class HotelSearchList extends Component {
     }
 }
 
+/**
+ * Obtiene del Store los hoteles, rooms y habitaciones.
+ * @param state
+ * @returns {{rooms: ([]|RoomDTO[]|*[]|*), hotels: ([]|{code: string, name: string}[]|*[]|[*, *, *, *]|*), copys: ({dropdownLabel: string, firstDatePickerLabel: string, secondDatePickerLabel: string, buttonLabel: string}|*)}}
+ * @see - Listado de reducers: {@link reducerList}
+ */
 const mapStateToProps = (state) => {
     return {
         hotels: state.hotelReducerGetHotelList.hotels,
         rooms: state.hotelReducerGetAvailableRooms.rooms,
-        translations: state.translationReducerGetTranslations.translations
+        copys: state.translationReducerGetCurrentLanguage.copys,
     }
 }
 
@@ -182,7 +199,6 @@ const mapDispatchToProps = (dispatch) => {
     return {
         getHotels: () => dispatch({type: REDUX_CONSTANTS.GET_HOTELS}),
         getAvailableRooms: () => dispatch({type: REDUX_CONSTANTS.GET_AVAILABLE_ROOMS}),
-        getTranslations: () => dispatch({type: REDUX_CONSTANTS.GET_TRANSLATIONS})
     }
 }
 

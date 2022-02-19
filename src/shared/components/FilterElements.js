@@ -19,16 +19,33 @@ const FiltersContainer = styled.div`
 `
 
 /**
- * Pinta y controla los elementos de filtrado y al pulsat check aviavility envia una query formada para buscar
- * habitaciones.
- * @version 1.2.3
- * @author Ivan Allue Gonzalez
+ * Devuelve un sistema de filtrado configurable que consta de 1 dropdown, 2 datePicker y 1 boton para confirmar cambios.
  * @param props {{
  *     onSendAvailability: function(),
- *     hotels: {code: string; name: string} []
+ *     hotels: {code: string; name: string} [],
+ *     [copys]:{
+ *          dropdownLabel: string;
+ *          firstDatePickerLabel: string;
+ *          secondDatePickerLabel:  string;
+ *          buttonLabel:  string;
+ *     }
  * }} - Hoteles a mostrar en el dropdown y funcion a ejecutar cuando se pulsa el boton.
  * @returns {JSX.Element<FiltersContainer>}
  * @constructor
+ * @description Metodos: {@link onHotelSelected},  {@link onCheckInChange}, {@link onCheckOutChange} ,
+ * {@link onCheckAvailability}
+ *
+ * @example
+ * //Filtros SIN copys:
+ * <FilterElements onSendAvailability={[funcion a ejecutar]} hotels={[Opciones del dropdown]} />
+ * //Filtros CON copys:
+ * <FilterElements onSendAvailability={[funcion a ejecutar]} hotels={[Opciones del dropdown]}  copys={{
+ *                       dropdownLabel: "Label dropdown",
+ *                       firstDatePickerLabel:  "Label 1º Datepicker",
+ *                       secondDatePickerLabel: "Label 2º Datepicker",
+ *                       buttonLabel: "Texto boton",
+ * }}/>
+ *
  */
 export function FilterElements(props) {
     const [hotelSelected, setHotelSelected] = useState(null);
@@ -90,7 +107,7 @@ export function FilterElements(props) {
     return (
         <FiltersContainer>
             <Dropdown
-                label="Select a hotel"
+                label={props.copys.dropdownLabel ? props.copys.dropdownLabel : ''}
                 options={props.hotels}
                 onOptionSelected={onHotelSelected}
                 value={hotelSelected}
@@ -99,21 +116,21 @@ export function FilterElements(props) {
             </Dropdown>
 
             <RoibackDatePicker
-                label="Check in"
+                label={props.copys.firstDatePickerLabel ? props.copys.firstDatePickerLabel : ''}
                 value={checkInDate}
                 minDate={moment()}
                 onDateSelected={onCheckInChange}>
             </RoibackDatePicker>
 
             <RoibackDatePicker
-                label="Check out"
+                label={props.copys.secondDatePickerLabel ? props.copys.secondDatePickerLabel : ''}
                 value={checkOutDate}
                 minDate={moment(checkInDate.format()).add(1, 'd')}
                 onDateSelected={onCheckOutChange}>
             </RoibackDatePicker>
 
             <Button onClick={onCheckAvailability}>
-                CHECK AVAILABILITY
+                {props.copys.buttonLabel ? props.copys.buttonLabel : 'CLICK'}
             </Button>
         </FiltersContainer>
     )
