@@ -5,6 +5,7 @@ import {Component} from "react";
 import {RoomsList} from "./components/RoomsList";
 import {connect} from "react-redux";
 import {REDUX_CONSTANTS} from "../../shared/redux/constants/constants";
+import {LoadingComponent} from "../../shared/components/LoadingComponent";
 
 const Results = styled.div`
   padding-top: 5rem;
@@ -14,6 +15,10 @@ const Results = styled.div`
   @media (max-width: 950px) {
     padding-top: 2rem;
   }
+`
+
+const LoadingContainer = styled.div`
+  margin: 5px
 `
 
 /**
@@ -34,12 +39,27 @@ class HotelSearchList extends Component {
 
         this.state = {
             roomList: [],
+            loading: false,
             searchQuery: null
         }
     }
 
     componentDidMount() {
         this.props.getHotels()
+    }
+
+    /**
+     * Comprueba si loading esta a true y si las rooms ya han cargado para poner loading a false.
+     * @param prevProps - Anterior version de props
+     * @param prevState - Anterior version del estado
+     * @param snapshot
+     */
+    componentDidUpdate(prevProps, prevState, snapshot) {
+        if (this.state.loading && this.props.rooms && this.props.rooms.length > 0) {
+            this.setState({
+                loading: false
+            })
+        }
     }
 
     /**
@@ -55,6 +75,7 @@ class HotelSearchList extends Component {
         this.props.getAvailableRooms()
         this.setState({
             searchQuery,
+            loading: true,
             roomList: []
         })
     }
@@ -72,28 +93,34 @@ class HotelSearchList extends Component {
      * Caso 3: El usuario NO realizo una busqueda y entonces NO hay datos mostramos
      * indicando que haga una busqueda.
      *
+     * Caso 4: Cargando
+     *
      * @see - Caso 1: {@link RoomsList}. Caso 2 y 3: {@link SearchFailed}
      *
      * @returns {JSX.Element}
      */
     getResultsComponent() {
-        if (this.props.rooms && this.props.rooms.length > 0) {
-            return <RoomsList roomList={this.props.rooms} searchQuery={this.state.searchQuery}/>
-        } else if (this.state.searchQuery) {
-            return (
-                <SearchFailed
-                    title="CHECK AVAILABILITY"
-                    subtitle="Sorry, we do not have availability for the indicated hotel on the selected
+        if (!this.state.loading) {
+            if (this.props.rooms && this.props.rooms.length > 0) {
+                return <RoomsList roomList={this.props.rooms} searchQuery={this.state.searchQuery}/>
+            } else if (this.state.searchQuery) {
+                return (
+                    <SearchFailed
+                        title="CHECK AVAILABILITY"
+                        subtitle="Sorry, we do not have availability for the indicated hotel on the selected
                     dates, please try again with a new search."
-                />
-            )
+                    />
+                )
+            } else {
+                return (
+                    <SearchFailed
+                        title="CHECK AVAILABILITY"
+                        subtitle="Select a hotel and two dates and you will receive magical results"
+                    />
+                )
+            }
         } else {
-            return (
-                <SearchFailed
-                    title="CHECK AVAILABILITY"
-                    subtitle="Select a hotel and two dates and you will receive magical results"
-                />
-            )
+            return <LoadingComponent/>
         }
     }
 
@@ -110,15 +137,24 @@ class HotelSearchList extends Component {
      * @returns {JSX.Element}
      */
     render() {
-        return (
-            <div>
-                <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels}/>
-                <Results>
-                    {this.getResultsComponent()}
-                </Results>
-            </div>
+        if (this.props.hotels && this.props.hotels.length > 0) {
+            return (
+                <div>
+                    <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels}/>
+                    <Results>
+                        {this.getResultsComponent()}
+                    </Results>
+                </div>
 
-        )
+            )
+        } else {
+            return (
+                <LoadingContainer>
+                    <LoadingComponent type={"linear"} size={7}/>
+                </LoadingContainer>
+            )
+        }
+
     }
 }
 

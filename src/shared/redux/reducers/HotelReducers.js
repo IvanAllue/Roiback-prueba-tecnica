@@ -19,7 +19,6 @@ import {RoomDTO} from "../../Models/RoomDTO";
  */
 export const hotelReducerGetHotelList = (state = {hotels: []}, action) => {
     if (action.type === REDUX_CONSTANTS.SET_HOTELS_BY_FIREBASE) {
-        console.log()
         return {
             hotels:  action.hotels.map((hotel) => {
                 return new HotelDTO(hotel)
