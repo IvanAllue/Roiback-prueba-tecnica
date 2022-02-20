@@ -70,14 +70,14 @@ function App() {
 /**
  * Transforma los states de copys en opciones del dropdown para poder escoger idioma.
  * @param storeData {{
- *     hotels: HotelDTO[];
- *     translations: any;
+ *     hotels: Array.<HotelDTO>,
+ *     translations: any,
  *     translationsData: {
- *         copys: any;
+ *         copys: any,
  *         language: string
  *     }
  * }} - Datos del store traidos de firebase almacenado en {@link App}.
- * @returns {{code: string; name:string}[]} - Opciones del dropdown
+ * @returns {Array.<{code: string, name:string}>} - Opciones del dropdown
  */
 function getDropdownOptionsByTranslations(storeData) {
     const dropdownOptions = []
