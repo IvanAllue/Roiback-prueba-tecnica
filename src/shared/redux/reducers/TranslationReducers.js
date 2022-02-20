@@ -26,10 +26,13 @@ export const translationReducerGetTranslations = (state = {translations: null}, 
 }
 
 /**
- * Creado en {@link reducerList}, obtiene todas las traducciones y guarda en el Storage como copys los textos de
- * toda la aplicacion en un idioma en especifico.
+ * Creado en {@link reducerList}, obtiene todas las traducciones y guarda en el Storage los copys de toda la aplicacion
+ * en un idioma especifico y el lenguaje seleccionado.
  *
- * @param state {{copys: {}}} - State en Redux, valor inicial un objeto vacio.
+ * @param state {{
+ *      copys: any,
+ *      language: string
+ * }} - State en Redux, valor inicial un objeto vacio.
  *
  * @param action {{type: REDUX_CONSTANTS, [data]: {
  *     language: "es-ES" | "en-EN" | string;
@@ -39,29 +42,34 @@ export const translationReducerGetTranslations = (state = {translations: null}, 
  *     }
  * }}} - Accion de redux. En data obtiene todos los textos traducidos y el idioma en especifico deseado.
  *
- * @returns  {{copys: any}} - Devuelve uun objeto vacio si no tenemos traducciones o un JSON con las traducciones del
- * pais en especifico
+ * @returns  {{
+ * copys: any;
+ * language: string;
+ * }} - Devuelve un objeto vacio si no tenemos traducciones o un objeto con copys (JSON con los copys del idioma
+ * seleccionado) y language (lenguaje seleccionado).
  *
  * @see Ver constantes disponibles: {@link REDUX_CONSTANTS}
  *
  *
  */
-export const translationReducerGetCurrentLanguage = (state = {copys: {}}, action) => {
+export const translationReducerGetCurrentLanguage = (state = {copys: null, language: ''}, action) => {
     if (action.type === REDUX_CONSTANTS.GET_CURRENT_LANGUAGE_COPYS) {
         const {language, translations} = action.data;
-
         switch (language) {
             case 'en-EN':
                 return {
-                    copys: translations.en
+                    copys: translations.en,
+                    language: "en-EN"
                 }
             case 'es-ES':
                 return {
-                    copys: translations.es
+                    copys: translations.es,
+                    language: "es-ES"
                 }
             default:
                 return {
-                    copys: translations.en
+                    copys: translations.en,
+                    language: "en-EN"
                 }
         }
     }

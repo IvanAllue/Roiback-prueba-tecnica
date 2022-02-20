@@ -1,13 +1,14 @@
 import styled from "styled-components";
 import {COLORS} from "../../../config/Colors";
 import {Room} from "./Room";
+import {useSelector} from "react-redux";
 
 
 export const InformationParagraph = styled.p`
   color: ${COLORS.BLACK};
   font-size: 1.2rem;
   font-weight: 500;
-  max-width: 25rem;
+  max-width: 27rem;
   text-align: center;
 `
 
@@ -51,11 +52,19 @@ const getRooms = (roomList) => {
 export function RoomsList(props) {
     const {hotelSelected, checkInDate, checkOutDate} = props.searchQuery
     const nightsDiff = checkOutDate.diff(checkInDate, 'd')
+
+    const copys = useSelector(state => {
+        return state.translationReducerGetCurrentLanguage.copys
+    })
+
+    const queryText = `${props.roomList.length} ${copys.queryResume.typeOfRooms} ${hotelSelected} ${copys.from} 
+                ${checkInDate.format('DD/MM/YYYY')} ${copys.to} ${checkOutDate.format('DD/MM/YYYY')} 
+                (${nightsDiff} ${nightsDiff > 1 ? copys.queryResume.nights : copys.queryResume.night})`
+
     return (
         <StyledRoomList>
             <InformationParagraph>
-                {props.roomList.length} Types of rooms available
-                at {hotelSelected} From {checkInDate.format('DD/MM/YYYY')} to {checkOutDate.format('DD/MM/YYYY')} ({nightsDiff} {nightsDiff > 1 ? 'nights' : 'night'})
+                {queryText}
             </InformationParagraph>
             <List>
                 {getRooms(props.roomList)}

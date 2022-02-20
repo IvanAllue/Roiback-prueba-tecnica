@@ -43,7 +43,6 @@ class HotelSearchList extends Component {
     constructor(props) {
         super(props);
 
-        console.log(props)
         this.state = {
             roomList: [],
             loading: false,
@@ -107,22 +106,22 @@ class HotelSearchList extends Component {
      * @returns {JSX.Element}
      */
     getResultsComponent() {
+        const {copys} = this.props
         if (!this.state.loading) {
             if (this.props.rooms && this.props.rooms.length > 0) {
                 return <RoomsList roomList={this.props.rooms} searchQuery={this.state.searchQuery}/>
             } else if (this.state.searchQuery) {
                 return (
                     <SearchFailed
-                        title="CHECK AVAILABILITY"
-                        subtitle="Sorry, we do not have availability for the indicated hotel on the selected
-                    dates, please try again with a new search."
+                        title={copys.checkAvailability}
+                        subtitle={copys.noResultsWarning.afterSearch}
                     />
                 )
             } else {
                 return (
                     <SearchFailed
-                        title="CHECK AVAILABILITY"
-                        subtitle="Select a hotel and two dates and you will receive magical results"
+                        title={copys.checkAvailability}
+                        subtitle={copys.noResultsWarning.beforeSearch}
                     />
                 )
             }
