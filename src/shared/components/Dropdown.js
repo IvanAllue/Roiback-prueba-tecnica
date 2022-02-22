@@ -38,9 +38,9 @@ function dropdownOptions(params) {
         const optionCode = option.code ? option.code : optionName;
 
         return (
-            <StyledMenuItem key={optionCode} value={optionCode}>
+            <option key={optionCode} value={optionCode}>
                 {optionName}
-            </StyledMenuItem>
+            </option>
         )
     })
 }
@@ -65,6 +65,7 @@ export function Dropdown(props) {
             <Select
                 labelId="demo-simple-select-filled-label"
                 id="demo-simple-select-filled"
+                native={true}
                 value={props.value ? props.value : ''}
                 onChange={props.onOptionSelected}
             >

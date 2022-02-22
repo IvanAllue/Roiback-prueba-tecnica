@@ -26,7 +26,7 @@ export class RateDTO {
         this.totalPrice = attributes.rateData.total_price;
         this.breakdown = attributes.rateData.breakdown.map((breakdown) => {
             const dateString = Object.keys(breakdown)[0]
-            const date = moment(dateString).startOf('day')
+            const date = moment(dateString).startOf('day').format()
             const breakdownData = breakdown[dateString];
             return new BreakdownDTO({date, breakdownData})
         })

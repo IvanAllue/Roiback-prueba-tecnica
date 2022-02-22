@@ -107,8 +107,8 @@ export function FilterElements(props) {
     return (
         <FiltersContainer>
             <Dropdown
-                label={props.copys.dropdownLabel ? props.copys.dropdownLabel : ''}
-                options={props.hotels}
+                label={props.copys && props.copys.dropdownLabel ? props.copys.dropdownLabel : ''}
+                options={props.hotels ? props.hotels : []}
                 onOptionSelected={onHotelSelected}
                 value={hotelSelected}
                 error={error}>
@@ -116,21 +116,21 @@ export function FilterElements(props) {
             </Dropdown>
 
             <RoibackDatePicker
-                label={props.copys.firstDatePickerLabel ? props.copys.firstDatePickerLabel : ''}
+                label={props.copys && props.copys.firstDatePickerLabel ? props.copys.firstDatePickerLabel : ''}
                 value={checkInDate}
                 minDate={moment()}
                 onDateSelected={onCheckInChange}>
             </RoibackDatePicker>
 
             <RoibackDatePicker
-                label={props.copys.secondDatePickerLabel ? props.copys.secondDatePickerLabel : ''}
+                label={props.copys && props.copys.secondDatePickerLabel ? props.copys.secondDatePickerLabel : ''}
                 value={checkOutDate}
                 minDate={moment(checkInDate.format()).add(1, 'd')}
                 onDateSelected={onCheckOutChange}>
             </RoibackDatePicker>
 
             <Button onClick={onCheckAvailability}>
-                {props.copys.buttonLabel ? props.copys.buttonLabel : 'CLICK'}
+                {props.copys && props.copys.buttonLabel ? props.copys.buttonLabel : 'CLICK'}
             </Button>
         </FiltersContainer>
     )

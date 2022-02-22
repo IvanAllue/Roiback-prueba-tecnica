@@ -121,7 +121,7 @@ class HotelSearchList extends Component {
                 return (
                     <SearchFailed
                         title={copys.checkAvailability}
-                        subtitle={copys.noResultsWarning.beforeSearch}
+                        subtitle={copys.noResultsWarning ? copys.noResultsWarning.beforeSearch : ''}
                     />
                 )
             }
@@ -149,7 +149,7 @@ class HotelSearchList extends Component {
             this.props.copys
         ) {
             return (
-                <div>
+                <div role='hotelSearchList'>
                     <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels} copys={{
                         dropdownLabel: this.props.copys.selectAHotel,
                         firstDatePickerLabel: this.props.copys.checkIn,
@@ -164,7 +164,7 @@ class HotelSearchList extends Component {
             )
         } else {
             return (
-                <LoadingContainer>
+                <LoadingContainer id={"linearLoading"}>
                     <LoadingComponent type={"linear"} size={7}/>
                 </LoadingContainer>
             )

@@ -13,7 +13,7 @@ export class BreakdownDTO {
     /**
      * Constructor BreakdownDTO
      * @param attributes {{
-     *     date: moment.Moment;
+     *     date: string;
      *     breakdownData: {
      *         price: number;
      *         allotment: number;
