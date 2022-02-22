@@ -1,8 +1,6 @@
-import {call, put} from "redux-saga/effects";
-import {REDUX_CONSTANTS} from "../constants/constants";
-import {getDataFromFirebase} from '../../firebase'
-
-
+import { call, put } from 'redux-saga/effects';
+import REDUX_CONSTANTS from '../constants/constants';
+import { getDataFromFirebase } from '../../firebase';
 
 /**
  * Obtiene la lista de hoteles de firebase que se leeran en el reducer: {@link hotelReducerGetHotelList}
@@ -10,11 +8,11 @@ import {getDataFromFirebase} from '../../firebase'
  * @see Ver constantes disponibles: {@link REDUX_CONSTANTS}
  */
 function* getTranslations() {
-    const translationsDataSnapshot = yield call(getDataFromFirebase, 'translations')
+    const translationsDataSnapshot = yield call(getDataFromFirebase, 'translations');
     yield put({
         type: REDUX_CONSTANTS.SET_TRANSLATIONS_BY_FIREBASE,
-        translations: translationsDataSnapshot.val()
-    })
+        translations: translationsDataSnapshot.val(),
+    });
 }
 
 /**
@@ -26,8 +24,11 @@ function* getTranslations() {
  */
 /**
  * Devuelve los sagas con los que podemos obtener
- * @type {{getHotels: ((function(): Generator<*, void, *>)|*), getRooms: ((function(): Generator<SimpleEffect<"CALL", CallEffectDescriptor<DataSnapshot>>, void, *>)|*)}}
+ * @type {{getHotels: ((function(): Generator<*, void, *>)|*), getRooms: ((function(): Generator<SimpleEffect<"CALL",
+ * CallEffectDescriptor<DataSnapshot>>, void, *>)|*)}}
  */
-export const TranslationsSagas = {
+const TranslationsSagas = {
     getTranslations,
-}
+};
+
+export default TranslationsSagas;

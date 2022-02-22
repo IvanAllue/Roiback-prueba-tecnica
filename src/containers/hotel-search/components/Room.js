@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import {COLORS} from "../../../config/Colors";
+import styled from 'styled-components';
+import COLORS from '../../../config/Colors';
 
 const StyledRoom = styled.div`
   max-width: 95rem;
@@ -10,7 +10,7 @@ const StyledRoom = styled.div`
     margin-left: 2rem;
     margin-right: 2rem;
   }
-`
+`;
 const RoomName = styled.p`
   padding: 1rem;
   height: 2.5rem;
@@ -19,7 +19,7 @@ const RoomName = styled.p`
   align-items: center;
   margin: 0;
   background-color: ${COLORS.BLACK};
-`
+`;
 
 const Fare = styled.div`
   display: flex;
@@ -30,7 +30,7 @@ const Fare = styled.div`
   & > p {
     margin: 0;
   }
-`
+`;
 
 /**
  * Pinta la lista de Rates
@@ -38,14 +38,12 @@ const Fare = styled.div`
  * @returns {JSX.Element<Fare>[]} - Lista de Fare que contiene los rateName y totalPrice del rateName de la RoomDTO
  */
 function getFareList(rates) {
-    return rates.map((rate, rateIndex) => {
-        return (
-            <Fare key={rateIndex}>
-                <p>{rate.rateName}</p>
-                <p>{rate.totalPrice}</p>
-            </Fare>
-        )
-    })
+    return rates.map((rate) => (
+        <Fare key={rate}>
+            <p>{rate.rateName}</p>
+            <p>{rate.totalPrice}</p>
+        </Fare>
+    ));
 }
 
 /**
@@ -55,15 +53,17 @@ function getFareList(rates) {
  * }} - Habitacion a pintar
  * @returns {JSX.Element<StyledRoom>} - Room y sus detalles
  */
-export function Room(props) {
+function Room({ roomData }) {
     return (
         <StyledRoom>
             <RoomName>
-                {props.roomData.roomName}
+                {roomData.roomName}
             </RoomName>
             <div>
-                {getFareList(props.roomData.roomRateList)}
+                {getFareList(roomData.roomRateList)}
             </div>
         </StyledRoom>
-    )
+    );
 }
+
+export default Room;

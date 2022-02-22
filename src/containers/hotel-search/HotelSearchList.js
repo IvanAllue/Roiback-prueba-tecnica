@@ -1,11 +1,11 @@
-import {FilterElements} from "../../shared/components/FilterElements";
-import {SearchFailed} from "../../shared/components/NoResultsComponent";
-import styled from "styled-components";
-import {Component} from "react";
-import {RoomsList} from "./components/RoomsList";
-import {connect} from "react-redux";
-import {REDUX_CONSTANTS} from "../../shared/redux/constants/constants";
-import {LoadingComponent} from "../../shared/components/LoadingComponent";
+import styled from 'styled-components';
+import { Component } from 'react';
+import { connect } from 'react-redux';
+import FilterElements from '../../shared/components/FilterElements';
+import SearchFailed from '../../shared/components/NoResultsComponent';
+import RoomsList from './components/RoomsList';
+import REDUX_CONSTANTS from '../../shared/redux/constants/constants';
+import LoadingComponent from '../../shared/components/LoadingComponent';
 
 const Results = styled.div`
   padding-top: 5rem;
@@ -15,11 +15,11 @@ const Results = styled.div`
   @media (max-width: 950px) {
     padding-top: 2rem;
   }
-`
+`;
 
 const LoadingContainer = styled.div`
   margin: 5px
-`
+`;
 
 /**
  * Componente para buscar habitaciones el los hoteles obtenidos por backend y muestra la respuesta obtenida.
@@ -44,27 +44,26 @@ class HotelSearchList extends Component {
         super(props);
 
         this.state = {
-            roomList: [],
             loading: false,
-            searchQuery: null
-        }
+            searchQuery: null,
+        };
     }
 
     componentDidMount() {
-        this.props.getHotels()
+        const { props } = this;
+        props.getHotels();
     }
 
     /**
      * Comprueba si loading esta a true y si las rooms ya han cargado para poner loading a false.
-     * @param prevProps - Anterior version de props
-     * @param prevState - Anterior version del estado
-     * @param snapshot
      */
-    componentDidUpdate(prevProps, prevState, snapshot) {
-        if (this.state.loading && this.props.rooms && this.props.rooms.length > 0) {
+    componentDidUpdate() {
+        const { state, props } = this;
+        if (state.loading && props.rooms && props.rooms.length > 0) {
+            // eslint-disable-next-line react/no-did-update-set-state
             this.setState({
-                loading: false
-            })
+                loading: false,
+            });
         }
     }
 
@@ -78,13 +77,13 @@ class HotelSearchList extends Component {
      * }} - Query a realizar con el codigo del hotel, fecha de entrada y de salida..
      */
     onSendAvailability = (searchQuery) => {
-        this.props.getAvailableRooms()
+        const { props } = this;
+        props.getAvailableRooms();
         this.setState({
             searchQuery,
             loading: true,
-            roomList: []
-        })
-    }
+        });
+    };
 
     /**
      * Devuelve un componente JSX en funcion del estado actual:
@@ -106,28 +105,28 @@ class HotelSearchList extends Component {
      * @returns {JSX.Element}
      */
     getResultsComponent() {
-        const {copys} = this.props
-        if (!this.state.loading) {
-            if (this.props.rooms && this.props.rooms.length > 0) {
-                return <RoomsList roomList={this.props.rooms} searchQuery={this.state.searchQuery}/>
-            } else if (this.state.searchQuery) {
-                return (
-                    <SearchFailed
-                        title={copys.checkAvailability}
-                        subtitle={copys.noResultsWarning.afterSearch}
-                    />
-                )
-            } else {
-                return (
-                    <SearchFailed
-                        title={copys.checkAvailability}
-                        subtitle={copys.noResultsWarning ? copys.noResultsWarning.beforeSearch : ''}
-                    />
-                )
+        const { state, props } = this;
+        const { copys } = props;
+        if (!state.loading) {
+            if (props.rooms && props.rooms.length > 0) {
+                return <RoomsList roomList={props.rooms} searchQuery={state.searchQuery} />;
             }
-        } else {
-            return <LoadingComponent/>
+            if (state.searchQuery) {
+                return (
+                    <SearchFailed
+                      title={copys.checkAvailability}
+                      subtitle={copys.noResultsWarning.afterSearch}
+                    />
+                );
+            }
+            return (
+                <SearchFailed
+                  title={copys.checkAvailability}
+                  subtitle={copys.noResultsWarning ? copys.noResultsWarning.beforeSearch : ''}
+                />
+            );
         }
+        return <LoadingComponent />;
     }
 
     /**
@@ -143,49 +142,53 @@ class HotelSearchList extends Component {
      * @returns {JSX.Element}
      */
     render() {
+        const { props } = this;
         if (
-            this.props.hotels &&
-            this.props.hotels.length > 0 &&
-            this.props.copys
+            props.hotels
+            && props.hotels.length > 0
+            && props.copys
         ) {
             return (
-                <div role='hotelSearchList'>
-                    <FilterElements onSendAvailability={this.onSendAvailability} hotels={this.props.hotels} copys={{
-                        dropdownLabel: this.props.copys.selectAHotel,
-                        firstDatePickerLabel: this.props.copys.checkIn,
-                        secondDatePickerLabel: this.props.copys.checkOut,
-                        buttonLabel: this.props.copys.checkAvailability,
-                    }}/>
+                <div>
+                    <FilterElements
+                      onSendAvailability={this.onSendAvailability}
+                      hotels={props.hotels}
+                      copys={{
+                            dropdownLabel: props.copys.selectAHotel,
+                            firstDatePickerLabel: props.copys.checkIn,
+                            secondDatePickerLabel: props.copys.checkOut,
+                            buttonLabel: props.copys.checkAvailability,
+                        }}
+                    />
                     <Results>
                         {this.getResultsComponent()}
                     </Results>
                 </div>
 
-            )
-        } else {
-            return (
-                <LoadingContainer id={"linearLoading"}>
-                    <LoadingComponent type={"linear"} size={7}/>
-                </LoadingContainer>
-            )
+            );
         }
-
+        return (
+            <LoadingContainer id="linearLoading">
+                <LoadingComponent type="linear" size={7} />
+            </LoadingContainer>
+        );
     }
 }
 
 /**
  * Obtiene del Store los hoteles, rooms y habitaciones.
  * @param state
- * @returns {{rooms: ([]|RoomDTO[]|*[]|*), hotels: ([]|{code: string, name: string}[]|*[]|[*, *, *, *]|*), copys: ({dropdownLabel: string, firstDatePickerLabel: string, secondDatePickerLabel: string, buttonLabel: string}|*)}}
+ * @returns {{
+ * rooms: Array|Array.<RoomDTO>,
+ * hotels: Array|Array.<{code: string, name: string}>,
+ * copys: any}}
  * @see - Listado de reducers: {@link reducerList}
  */
-const mapStateToProps = (state) => {
-    return {
-        hotels: state.hotelReducerGetHotelList.hotels,
-        rooms: state.hotelReducerGetAvailableRooms.rooms,
-        copys: state.translationReducerGetCurrentLanguage.copys,
-    }
-}
+const mapStateToProps = (state) => ({
+    hotels: state.hotelReducerGetHotelList.hotels,
+    rooms: state.hotelReducerGetAvailableRooms.rooms,
+    copys: state.translationReducerGetCurrentLanguage.copys,
+});
 
 /**
  * Inyecta en los props del componente los dispatch de los sagas: {@link getHotels} y {@link getAvailableRooms}
@@ -194,12 +197,9 @@ const mapStateToProps = (state) => {
  *
  * @see - Types disponibles: {@link REDUX_CONSTANTS}
  */
-const mapDispatchToProps = (dispatch) => {
-    return {
-        getHotels: () => dispatch({type: REDUX_CONSTANTS.GET_HOTELS}),
-        getAvailableRooms: () => dispatch({type: REDUX_CONSTANTS.GET_AVAILABLE_ROOMS}),
-    }
-}
-
+const mapDispatchToProps = (dispatch) => ({
+    getHotels: () => dispatch({ type: REDUX_CONSTANTS.GET_HOTELS }),
+    getAvailableRooms: () => dispatch({ type: REDUX_CONSTANTS.GET_AVAILABLE_ROOMS }),
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(HotelSearchList);

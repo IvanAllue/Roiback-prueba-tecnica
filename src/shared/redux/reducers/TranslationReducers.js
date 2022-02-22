@@ -1,4 +1,4 @@
-import {REDUX_CONSTANTS} from "../constants/constants";
+import REDUX_CONSTANTS from '../constants/constants';
 
 /**
  * Creado en {@link reducerList}, almacena en el store el listado de translations de firebase. Ejecutado a traves
@@ -15,15 +15,14 @@ import {REDUX_CONSTANTS} from "../constants/constants";
  *
  *
  */
-export const translationReducerGetTranslations = (state = {translations: null}, action) => {
+export const translationReducerGetTranslations = (state = { translations: null }, action) => {
     if (action.type === REDUX_CONSTANTS.SET_TRANSLATIONS_BY_FIREBASE) {
         return {
-            translations: action.translations
-        }
+            translations: action.translations,
+        };
     }
-    return state
-
-}
+    return state;
+};
 
 /**
  * Creado en {@link reducerList}, obtiene todas las traducciones y guarda en el Storage los copys de toda la aplicacion
@@ -52,27 +51,26 @@ export const translationReducerGetTranslations = (state = {translations: null}, 
  *
  *
  */
-export const translationReducerGetCurrentLanguage = (state = {copys: null, language: ''}, action) => {
+export const translationReducerGetCurrentLanguage = (state = { copys: null, language: '' }, action) => {
     if (action.type === REDUX_CONSTANTS.GET_CURRENT_LANGUAGE_COPYS) {
-        const {language, translations} = action.data;
+        const { language, translations } = action.data;
         switch (language) {
-            case 'en-EN':
-                return {
-                    copys: translations.en,
-                    language: "en-EN"
-                }
-            case 'es-ES':
-                return {
-                    copys: translations.es,
-                    language: "es-ES"
-                }
-            default:
-                return {
-                    copys: translations.en,
-                    language: "en-EN"
-                }
+        case 'en-EN':
+            return {
+                copys: translations.en,
+                language: 'en-EN',
+            };
+        case 'es-ES':
+            return {
+                copys: translations.es,
+                language: 'es-ES',
+            };
+        default:
+            return {
+                copys: translations.en,
+                language: 'en-EN',
+            };
         }
     }
-    return state
-
-}
+    return state;
+};

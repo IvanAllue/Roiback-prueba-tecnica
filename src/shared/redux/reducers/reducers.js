@@ -1,6 +1,6 @@
-import {combineReducers} from "redux";
-import {hotelReducerGetAvailableRooms, hotelReducerGetHotelList} from "./HotelReducers";
-import {translationReducerGetCurrentLanguage, translationReducerGetTranslations} from "./TranslationReducers";
+import { combineReducers } from 'redux';
+import { hotelReducerGetAvailableRooms, hotelReducerGetHotelList } from './HotelReducers';
+import { translationReducerGetCurrentLanguage, translationReducerGetTranslations } from './TranslationReducers';
 
 /**
  * Listado de reducers de redux, actualmente disponibles:
@@ -10,9 +10,11 @@ import {translationReducerGetCurrentLanguage, translationReducerGetTranslations}
  * @description {@link translationReducerGetCurrentLanguage} - Reducer que obtiene los copys de un pais en especifico
  * @namespace
  */
-export const reducerList = combineReducers({
+const reducerList = combineReducers({
     hotelReducerGetHotelList,
     hotelReducerGetAvailableRooms,
     translationReducerGetTranslations,
     translationReducerGetCurrentLanguage,
-})
+});
+
+export default reducerList;

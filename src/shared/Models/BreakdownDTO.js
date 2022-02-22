@@ -6,9 +6,10 @@
  *    allotment: number
  * }} breakdownData - Precio del dia y habitaciones restantes.
  */
-export class BreakdownDTO {
+class BreakdownDTO {
     date;
-    breakdownData
+
+    breakdownData;
 
     /**
      * Constructor BreakdownDTO
@@ -21,6 +22,7 @@ export class BreakdownDTO {
      * }}
      */
     constructor(attributes) {
-        Object.assign(this, attributes)
+        Object.assign(this, attributes);
     }
 }
+export default BreakdownDTO;

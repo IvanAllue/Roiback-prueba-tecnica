@@ -1,6 +1,6 @@
-import {REDUX_CONSTANTS} from "../constants/constants";
-import {HotelDTO} from "../../Models/HotelDTO";
-import {RoomDTO} from "../../Models/RoomDTO";
+import REDUX_CONSTANTS from '../constants/constants';
+import HotelDTO from '../../Models/HotelDTO';
+import RoomDTO from '../../Models/RoomDTO';
 
 /**
  * Creado en {@link reducerList}, almacena en el store el listado de hotels de firebase. Ejecutado a traves
@@ -17,17 +17,14 @@ import {RoomDTO} from "../../Models/RoomDTO";
  *
  *
  */
-export const hotelReducerGetHotelList = (state = {hotels: []}, action) => {
+export const hotelReducerGetHotelList = (state = { hotels: [] }, action) => {
     if (action.type === REDUX_CONSTANTS.SET_HOTELS_BY_FIREBASE) {
         return {
-            hotels:  action.hotels.map((hotel) => {
-                return new HotelDTO(hotel)
-            })
-        }
+            hotels: action.hotels.map((hotel) => new HotelDTO(hotel)),
+        };
     }
-    return state
-
-}
+    return state;
+};
 
 /**
  * Creado en {@link reducerList}, almacena en el store el listado de rooms de firebase. Ejecutado a traves
@@ -42,19 +39,19 @@ export const hotelReducerGetHotelList = (state = {hotels: []}, action) => {
  *
  *  @see Ver constantes disponibles: {@link REDUX_CONSTANTS}
  */
-export const hotelReducerGetAvailableRooms = (state = {rooms: []}, action) => {
+export const hotelReducerGetAvailableRooms = (state = { rooms: [] }, action) => {
     if (action.type === REDUX_CONSTANTS.SET_AVAILABLE_ROOMS_BY_FIREBASE) {
-        const roomList = []
+        const roomList = [];
         action.rooms.forEach((room) => {
             const roomName = Object.keys(room)[0];
             const roomRateList = room[roomName].rates;
-            roomList.push(new RoomDTO({roomName, roomRateList}))
-        })
+            roomList.push(new RoomDTO({ roomName, roomRateList }));
+        });
 
         return {
-            rooms: roomList
-        }
+            rooms: roomList,
+        };
     }
 
     return state;
-}
+};

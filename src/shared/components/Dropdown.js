@@ -1,6 +1,8 @@
-import {FormControl, InputLabel, MenuItem, Select} from "@mui/material";
-import styled, {css} from "styled-components";
-import {COLORS} from "../../config/Colors";
+import {
+    FormControl, InputLabel, Select,
+} from '@mui/material';
+import styled, { css } from 'styled-components';
+import COLORS from '../../config/Colors';
 
 const StyledFormControl = styled(FormControl)`
   min-width: 14rem !important;
@@ -14,35 +16,35 @@ const StyledFormControl = styled(FormControl)`
     color: ${COLORS.PRIMARY_COLOR} !important;
   }
 
-  ${({error}) => error && css`
+  ${({ error }) => error && css`
     & > label {
       color: ${COLORS.RED} !important;
     }
   `}
-`
+`;
 
-const StyledMenuItem = styled(MenuItem)`
+const StyledMenuItem = styled.option`
   &:hover {
     background-color: #e5f4f4 !important;
   }
-`
+`;
 
 /**
  * Devuelve cada una de las opciones del Dropdown.
  * @param params {{code: string; name:string;}[]} - Lista de opciones formadas por {code} (return) y {name} (pintar).
- * @returns {JSX.Element<StyledMenuItem>} - Opciones del dropdown.
+ * @returns {JSX.Element<StyledMenuItem[]>|[]} - Opciones del dropdown.
  */
 function dropdownOptions(params) {
-    return params.map((option) => {
-        const optionName = option.name ? option.name : option.code ? option.code : '';
-        const optionCode = option.code ? option.code : optionName;
+    return params.map(({ name, code }) => {
+        const optionName = name || '';
+        const optionCode = code || optionName;
 
         return (
-            <option key={optionCode} value={optionCode}>
+            <StyledMenuItem key={optionCode} value={optionCode}>
                 {optionName}
-            </option>
-        )
-    })
+            </StyledMenuItem>
+        );
+    });
 }
 
 /**
@@ -57,20 +59,24 @@ function dropdownOptions(params) {
  * @returns {JSX.Element<StyledFormControl>} - Dropdown de Material UI con estilos.
  * @constructor
  */
-export function Dropdown(props) {
+function Dropdown({
+    value, onOptionSelected, label, error, options,
+}) {
     return (
-        <StyledFormControl variant="filled" sx={{m: 1, minWidth: 140}} error={props.error}>
-            <InputLabel id="demo-simple-select-filled-label">{props.label}</InputLabel>
+        <StyledFormControl variant="filled" sx={{ m: 1, minWidth: 140 }} error={error}>
+            <InputLabel id="demo-simple-select-filled-label">{label}</InputLabel>
 
             <Select
-                labelId="demo-simple-select-filled-label"
-                id="demo-simple-select-filled"
-                native={true}
-                value={props.value ? props.value : ''}
-                onChange={props.onOptionSelected}
+              labelId="demo-simple-select-filled-label"
+              id="demo-simple-select-filled"
+              native
+              value={value || ''}
+              onChange={onOptionSelected}
             >
-                {dropdownOptions(props.options)}
+                {dropdownOptions(options)}
             </Select>
         </StyledFormControl>
-    )
+    );
 }
+
+export default Dropdown;

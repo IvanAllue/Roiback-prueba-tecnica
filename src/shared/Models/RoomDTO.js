@@ -1,13 +1,13 @@
-
-import {RateDTO} from "./RateDTO";
+import RateDTO from './RateDTO';
 
 /**
  * Room object
  * @property {string} roomName - Nombre de la habitacion
  * @property {RateDTO} roomRateList - Lista de rates de la habitacion
  */
-export class RoomDTO {
+class RoomDTO {
     roomName;
+
     roomRateList;
 
     /**
@@ -22,7 +22,9 @@ export class RoomDTO {
         this.roomRateList = attributes.roomRateList.map((rate) => {
             const rateName = Object.keys(rate)[0];
             const rateData = rate[rateName];
-            return new RateDTO({rateName, rateData})
-        })
+            return new RateDTO({ rateName, rateData });
+        });
     }
 }
+
+export default RoomDTO;

@@ -5,8 +5,9 @@
  *     name: string;
  * }}
  */
-export class HotelDTO {
+class HotelDTO {
     code;
+
     name;
 
     /**
@@ -17,6 +18,8 @@ export class HotelDTO {
      * }}
      */
     constructor(attributes) {
-        Object.assign(this, attributes)
+        Object.assign(this, attributes);
     }
 }
+
+export default HotelDTO;

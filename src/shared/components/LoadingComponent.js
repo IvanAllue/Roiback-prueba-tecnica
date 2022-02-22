@@ -1,9 +1,9 @@
-import styled from "styled-components";
-import {CircularProgress, LinearProgress} from "@mui/material";
-import {COLORS} from "../../config/Colors";
+import styled from 'styled-components';
+import { CircularProgress, LinearProgress } from '@mui/material';
+import COLORS from '../../config/Colors';
 
 const StyledLinearProgress = styled(LinearProgress)`
-  height: ${props => props.size ? props.size + 'px' : '0.5rem'} !important;
+  height: ${(props) => (props.size ? `${props.size}px` : '0.5rem')} !important;
   background-color: ${COLORS.PRIMARY_COLOR_DISABLED} !important;
 
   .MuiLinearProgress-bar1Indeterminate {
@@ -13,13 +13,13 @@ const StyledLinearProgress = styled(LinearProgress)`
   .MuiLinearProgress-bar2Indeterminate {
     background-color: ${COLORS.PRIMARY_COLOR} !important;
   }
-`
+`;
 
 const StyledCircularProgress = styled(CircularProgress)`
   color: ${COLORS.PRIMARY_COLOR} !important;
-  height: ${props => props.size ? props.size + 'px' : '4rem'} !important;
-  width: ${props => props.size ? props.size + 'px' : '4rem'} !important;
-`
+  height: ${(props) => (props.size ? `${props.size}px` : '4rem')} !important;
+  width: ${(props) => (props.size ? `${props.size}px` : '4rem')} !important;
+`;
 
 /**
  * Renderiza un componente de loading progresivo configurable.
@@ -44,10 +44,12 @@ const StyledCircularProgress = styled(CircularProgress)`
  * <LoadingComponent size={100}></LoadingComponent>
  * @constructor
  */
-export function LoadingComponent(props) {
-    if (props.type === "linear") {
-        return <StyledLinearProgress size={props.size}></StyledLinearProgress>
+function LoadingComponent({ type, size }) {
+    if (type === 'linear') {
+        return <StyledLinearProgress size={size} />;
     }
 
-    return <StyledCircularProgress size={props.size}></StyledCircularProgress>
+    return <StyledCircularProgress size={size} />;
 }
+
+export default LoadingComponent;
