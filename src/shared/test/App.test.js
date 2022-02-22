@@ -89,7 +89,7 @@ describe('Test del componente App', () => {
                 <App />
             </Provider>,
         );
-        expect(screen.getByRole('combobox')).toBeInTheDocument();
+        expect(screen.getByText('English')).toBeInTheDocument();
     });
 
     /**
@@ -121,7 +121,7 @@ describe('Test del componente App', () => {
                 <App />
             </Provider>,
         );
-        expect(screen.getByText('Spanish')).toBeInTheDocument();
+        expect(screen.getByText('English')).toBeInTheDocument();
     });
 
     /**

@@ -4,7 +4,6 @@ import {
 import moment from 'moment';
 import FilterElements from '../components/FilterElements';
 import Button from '../components/Button';
-import Dropdown from '../components/Dropdown';
 import TESTING_CONSTANTS from './testingConstants';
 
 /**
@@ -90,9 +89,9 @@ describe('Filter Element Visuales', () => {
     });
 
     /**
-     * Filter Elements: Comprueba que si no tiene copys no falla
+     * Filter Elements: Comprueba que si Filter Elements no tiene copys no falla
      */
-    it('Comprueba que si no tiene copys no falla', () => {
+    it(' Comprueba que si Filter Elements no tiene copys no falla', () => {
         render(
             <FilterElements
               onSendAvailability={() => {
@@ -100,7 +99,8 @@ describe('Filter Element Visuales', () => {
               hotels={TESTING_CONSTANTS.STORE.HOTELS}
             />,
         );
-        expect(screen.getByText(TESTING_CONSTANTS.STORE.HOTELS[0].name)).toBeInTheDocument();
+
+        expect(screen.getByDisplayValue(moment().format('DD/MM/YYYY'))).toBeInTheDocument();
     });
 
     /**
@@ -123,7 +123,7 @@ describe('Filter Element Visuales', () => {
         render(
             <FilterElements />,
         );
-        expect(screen.getByRole('combobox')).toBeInTheDocument();
+        expect(screen.getByDisplayValue(moment().format('DD/MM/YYYY'))).toBeInTheDocument();
     });
 });
 
@@ -196,31 +196,6 @@ describe('Filter Elements Funcionalidades', () => {
             expect(validator).toBeTruthy();
         },
     );
-
-    /**
-     * Validacion de funcionalidad del dropdown.
-     * Cuando en el dropdown se cambia algo se guarda en hotelSelected
-     */
-    it('Dropdown change ejecuta la accion enviada', () => {
-        const onHotelSelected = jest.fn(() => {
-            filterElementContext.filterElementsState.hotelSelected = true;
-        });
-        render(
-            <Dropdown
-              label="Dropdown"
-              options={TESTING_CONSTANTS.STORE.HOTELS}
-              onOptionSelected={onHotelSelected}
-              value=""
-              error={false}
-            />,
-        );
-
-        fireEvent.change(screen.getByRole('combobox'));
-
-        const validator = onHotelSelected.mock.calls.length > 0 && filterElementContext.filterElementsState.hotelSelected;
-
-        expect(validator).toBeTruthy();
-    });
 
     /**
      * Funcionalidad datePicker

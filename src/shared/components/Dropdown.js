@@ -1,5 +1,5 @@
 import {
-    FormControl, InputLabel, Select,
+    FormControl, InputLabel, MenuItem, Select,
 } from '@mui/material';
 import styled, { css } from 'styled-components';
 import COLORS from '../../config/Colors';
@@ -23,9 +23,18 @@ const StyledFormControl = styled(FormControl)`
   `}
 `;
 
-const StyledMenuItem = styled.option`
+const StyledMenuItem = styled(MenuItem)`
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.5rem !important;
+
   &:hover {
-    background-color: #e5f4f4 !important;
+    background-color: ${COLORS.PRIMARY_COLOR_LIGHT} !important;
+  }
+
+  &:active {
+    background-color: ${COLORS.PRIMARY_COLOR} !important;
   }
 `;
 
@@ -69,7 +78,6 @@ function Dropdown({
             <Select
               labelId="demo-simple-select-filled-label"
               id="demo-simple-select-filled"
-              native
               value={value || ''}
               onChange={onOptionSelected}
             >
