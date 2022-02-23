@@ -126,5 +126,6 @@ Bueno lo cierto es que he estado intentando desarrollar y sacarle el maximo jugo
 - Testing: En esta parte me he quedado bastante cortito, es principalmente debido a que he estado aprendiendo sobre la marcha.
 - MobX: De no haber sido por la falta de tiempo me habria gustado incorporar MobX en alguna otra rama, es otro muy buen gestor de estados, aunque como me habia percatado de que me iba a ser imposible he decidido apostar por la que mas suele utilizarse.
 - De haber utilizado firestore en lugar de realtime (no quise por ser fiel a la estructura) se podria realmente haber filtrado en las peticiones y haber hecho que los datos cambiaran. Con realtime el filtrado es manual (jugando con array) y tambien habria estado bien, pero la gracia era hacerlo con firestore ya que por como esta redactado el ejercicio esos datos los obtiene de back, no los procesa el front.
+- En la query del hotel (cuando mostramos results) puse el id del hotel en lugar del name
 
 Y lo mas importante: ProtoType, que me sonaba pero no me acordaba de este y cuando instale eslint se me volvio loco a exigirmelo.
