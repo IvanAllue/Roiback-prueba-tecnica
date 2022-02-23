@@ -46,8 +46,7 @@ const materialTheme = createMuiTheme({
 });
 
 /**
- * Renderiza un datePicker de Material UI estilado con el tema de la aplicacion.
- * @event onDateSelected - Fecha seleccionada string en formato largo. Contiene tiempo en horas, formatear a dias.
+ *
  * @param props {{
  *     placeholder: string;
  *     label: string;

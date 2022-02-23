@@ -57,7 +57,7 @@ function dropdownOptions(params) {
 }
 
 /**
- * Renderiza un dropdown configurable hecho con Material UI.
+ *
  * @param props {{
  *     error: boolean;
  *     label: string;
