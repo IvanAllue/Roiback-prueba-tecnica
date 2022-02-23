@@ -19,6 +19,7 @@ const app = initializeApp(firebaseConfig);
 /**
  * Funcion para utilizar las herramientas y utilidades de Firebase utilizando el tipo de DB Realtime
  * @type {Database}
+ * @const
  */
 export const database = getDatabase(app);
 
@@ -28,6 +29,7 @@ export const database = getDatabase(app);
  * @returns {Promise<DataSnapshot>} - Promise que, cuando finalice devuelve un DataSnapshot, con .val() podemos ver
  * el contenido de la respuesta.
  * @export
+ * @const
  */
 export const getDataFromFirebase = (PATH) => {
     const dbRef = ref(getDatabase());

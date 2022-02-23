@@ -2,6 +2,7 @@ import moment from 'moment';
 import BreakdownDTO from './BreakdownDTO';
 /**
  * Rate object
+ * @class
  * @property {string} rateName - Nombre del Rate
  * @property {number} totalPrice - Precio total del Rate (Suma de todos los price de los breackdowns)
  * @property {BreakdownDTO} breakdown - Lista de los breakdown

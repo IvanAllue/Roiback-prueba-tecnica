@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: shared/components/Dropdown.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: shared/components/Dropdown.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+    FormControl, InputLabel, MenuItem, Select,
+} from '@mui/material';
+import styled, { css } from 'styled-components';
+import COLORS from '../../config/Colors';
+
+const StyledFormControl = styled(FormControl)`
+  min-width: 14rem !important;
+
+  &amp; .css-cio0x1-MuiInputBase-root-MuiFilledInput-root:after {
+    border-color: ${COLORS.PRIMARY_COLOR};
+  }
+
+
+  &amp; > label {
+    color: ${COLORS.PRIMARY_COLOR} !important;
+  }
+
+  ${({ error }) => error &amp;&amp; css`
+    &amp; > label {
+      color: ${COLORS.RED} !important;
+    }
+  `}
+`;
+
+const StyledMenuItem = styled(MenuItem)`
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0.5rem !important;
+
+  &amp;:hover {
+    background-color: ${COLORS.PRIMARY_COLOR_LIGHT} !important;
+  }
+
+  &amp;:active {
+    background-color: ${COLORS.PRIMARY_COLOR} !important;
+  }
+`;
+
+/**
+ * Devuelve cada una de las opciones del Dropdown.
+ * @param params {{code: string; name:string;}[]} - Lista de opciones formadas por {code} (return) y {name} (pintar).
+ * @returns {JSX.Element&lt;StyledMenuItem[]>|[]} - Opciones del dropdown.
+ */
+function dropdownOptions(params) {
+    return params.map(({ name, code }) => {
+        const optionName = name || '';
+        const optionCode = code || optionName;
+
+        return (
+            &lt;StyledMenuItem key={optionCode} value={optionCode}>
+                {optionName}
+            &lt;/StyledMenuItem>
+        );
+    });
+}
+
+/**
+ * Renderiza un dropdown configurable hecho con Material UI.
+ * @param props {{
+ *     error: boolean;
+ *     label: string;
+ *     value: string;
+ *     onOptionSelected: function();
+ *     options: {code: string; name:string;}[]
+ * }} - Opciones configurables del Dropdown.
+ * @returns {JSX.Element&lt;StyledFormControl>} - Dropdown de Material UI con estilos.
+ * @event onOptionSelected - Opcion seleccionada, para acceder a los datos ves a event.target.value
+ * @example
+ *  const options = [{code:"valor a recibir", name:"valor a mostrar"}];
+ *
+ *  &lt;Dropdown
+ *      options={options} // Opciones a mostrar en la lista
+ *      label={"Texto a mostrar en la label"} // Texto de la label
+ *      onOptionSelected={function()} // Funcion a ejecutar cuando se selecciona una opcion
+ *      value={"Codigo marcado por defecto"} // Valor inicial del dropdown.
+ *      error={true/false} // Si es true se mostrara rodeado en rojo
+ * />
+ * @function
+ */
+function Dropdown({
+    value, onOptionSelected, label, error, options,
+}) {
+    return (
+        &lt;StyledFormControl variant="filled" sx={{ m: 1, minWidth: 140 }} error={error}>
+            &lt;InputLabel id="demo-simple-select-filled-label">{label}&lt;/InputLabel>
+
+            &lt;Select
+              labelId="demo-simple-select-filled-label"
+              id="demo-simple-select-filled"
+              value={value || ''}
+              onChange={onOptionSelected}
+            >
+                {dropdownOptions(options)}
+            &lt;/Select>
+        &lt;/StyledFormControl>
+    );
+}
+
+export default Dropdown;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="BreakdownDTO.html">BreakdownDTO</a></li><li><a href="HotelDTO.html">HotelDTO</a></li><li><a href="HotelSearchList.html">HotelSearchList</a></li><li><a href="RateDTO.html">RateDTO</a></li><li><a href="RoomDTO.html">RoomDTO</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#COLORS">COLORS</a></li><li><a href="global.html#database">database</a></li><li><a href="global.html#Devuelvelossagasconlosquepodemosobtener%257B@linkHotelDTO%257Chotels%257Dy%257B@linkRoomDTO%257Crooms%257D">Devuelve los sagas con los que podemos obtener {@link HotelDTO|hotels} y {@link RoomDTO|rooms}</a></li><li><a href="global.html#dropdownOptions">dropdownOptions</a></li><li><a href="global.html#EjecutaunapreticionaFirebasesolicitandoelpath(laquery)rooms.">Ejecuta una preticion a Firebase solicitando el path (la query) rooms.</a></li><li><a href="global.html#Fare">Fare</a></li><li><a href="global.html#FiltersContainer">FiltersContainer</a></li><li><a href="global.html#getDataFromFirebase">getDataFromFirebase</a></li><li><a href="global.html#getFareList">getFareList</a></li><li><a href="global.html#getRooms">getRooms</a></li><li><a href="global.html#getTranslations">getTranslations</a></li><li><a href="global.html#hotelReducerGetAvailableRooms">hotelReducerGetAvailableRooms</a></li><li><a href="global.html#hotelReducerGetHotelList">hotelReducerGetHotelList</a></li><li><a href="global.html#LanguageSelector">LanguageSelector</a></li><li><a href="global.html#List">List</a></li><li><a href="global.html#LoadingComponent">LoadingComponent</a></li><li><a href="global.html#LoadingContainer">LoadingContainer</a></li><li><a href="global.html#mapDispatchToProps">mapDispatchToProps</a></li><li><a href="global.html#mapStateToProps">mapStateToProps</a></li><li><a href="global.html#materialTheme">materialTheme</a></li><li><a href="global.html#Obtienelalistadehotelesdefirebasequeseleeranenelreducer:%257B@linkhotelReducerGetHotelList%257D">Obtiene la lista de hoteles de firebase que se leeran en el reducer: {@link hotelReducerGetHotelList}</a></li><li><a href="global.html#Obtienelalistaderoomsdefirebasequeseleeranenelreducer:%257B@linkhotelReducerGetAvailableRooms%257D">Obtiene la lista de rooms de firebase que se leeran en el reducer: {@link hotelReducerGetAvailableRooms}</a></li><li><a href="global.html#onSendAvailability-Seejecutaalpulsarelbotoncheckavailabilityyenvia(solosisehaseleccionadounhotel)elhotelseleccionado(string)checkinycheckout(moment).">onSendAvailability - Se ejecuta al pulsar el boton check availability y envia (solo si se ha seleccionado un hotel) el hotel
+seleccionado (string) check in y check out (moment).</a></li><li><a href="global.html#QueryText">QueryText</a></li><li><a href="global.html#reducerList">reducerList</a></li><li><a href="global.html#REDUX_CONSTANTS">REDUX_CONSTANTS</a></li><li><a href="global.html#Room">Room</a></li><li><a href="global.html#RoomName">RoomName</a></li><li><a href="global.html#RoomsList">RoomsList</a></li><li><a href="global.html#SearchFailed">SearchFailed</a></li><li><a href="global.html#Store">Store</a></li><li><a href="global.html#StyledRoom">StyledRoom</a></li><li><a href="global.html#TESTING_CONSTANTS">TESTING_CONSTANTS</a></li><li><a href="global.html#translationReducerGetCurrentLanguage">translationReducerGetCurrentLanguage</a></li><li><a href="global.html#translationReducerGetTranslations">translationReducerGetTranslations</a></li><li><a href="global.html#TranslationsSagas">TranslationsSagas</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Feb 23 2022 20:16:20 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

@@ -1,6 +1,10 @@
 import styled from 'styled-components';
 import COLORS from '../../../config/Colors';
 
+/**
+ * Renderiza con estilos el contenedor que muestra los datos de una room: {@link RoomDTO}
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 const StyledRoom = styled.div`
   max-width: 95rem;
   width: 100%;
@@ -11,6 +15,11 @@ const StyledRoom = styled.div`
     margin-right: 2rem;
   }
 `;
+
+/**
+ * Muestra con estilos el parrafo que muestra el nombre de la habitacion
+ * @type {StyledComponent<"p", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 const RoomName = styled.p`
   padding: 1rem;
   height: 2.5rem;
@@ -21,6 +30,10 @@ const RoomName = styled.p`
   background-color: ${COLORS.BLACK};
 `;
 
+/**
+ * Elemento contenedor donde se rendizaran el rate de una habitacion {@link RateDTO}
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 const Fare = styled.div`
   display: flex;
   justify-content: space-between;
@@ -33,9 +46,9 @@ const Fare = styled.div`
 `;
 
 /**
- * Pinta la lista de Rates
- * @param rates {RateDTO[]} - Lista de Rates dentro de la RoomDTO
- * @returns {JSX.Element<Fare>[]} - Lista de Fare que contiene los rateName y totalPrice del rateName de la RoomDTO
+ * Renderiza una lista de rates de la room.
+ * @param rates {Array.<RateDTO>} - Lista de Rates dentro de RoomDTO
+ * @returns {Array.<JSX.Element<Fare>>} - Lista de Fare que contiene los rateName y totalPrice del rateName de la RoomDTO
  */
 function getFareList(rates) {
     return rates.map((rate) => (
@@ -52,6 +65,7 @@ function getFareList(rates) {
  *     roomData: RoomDTO
  * }} - Habitacion a pintar
  * @returns {JSX.Element<StyledRoom>} - Room y sus detalles
+ * @function
  */
 function Room({ roomData }) {
     return (

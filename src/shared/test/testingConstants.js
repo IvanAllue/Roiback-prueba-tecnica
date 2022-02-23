@@ -257,6 +257,37 @@ const FIREBASE = {
 
 };
 
+/**
+ * Constantes para mockear stores y props
+ * @type {{FIREBASE: {ROOMS: [{room_1: {rates: [{rate_1: {total_price: number, breakdown: [{"2022-01-01": {price: number, allotment: number}
+ * , "2022-01-02": {price: number, allotment: number}}]}}]}}], TRANSLATIONS: {en: {checkIn: string,
+ * languages: {spanish: string, english: string}, noResultsWarning: {beforeSearch: string, afterSearch: string}, hotel: string, from: string
+ * , language: string, checkAvailability: string, queryResume: {nights: string, night: string, typeOfRooms: string},
+ * to: string, checkOut: string, selectAHotel: string}, es: {checkIn: string, languages: {spanish: string, english: string},
+ * noResultsWarning: {beforeSearch: string, afterSearch: string}, hotel: string, from: string, language: string, checkAvailability: string,
+ * queryResume: {nights: string, night: string, typeOfRooms: string}, to: string, checkOut: string, selectAHotel: string}},
+ * HOTELS: [{code: string, name: string}, {code: string, name: string}]}, STORE: {ROOMS: [{roomRateList: [{rateName: string,
+ * totalPrice: number, breakdown: [{date: string, breakdownData: {price: number, allotment: number}}]}], roomName: string}],
+ * TRANSLATIONS: {en: {checkIn: string, languages: {spanish: string, english: string},
+ * noResultsWarning: {beforeSearch: string, afterSearch: string}, hotel: string, from: string,
+ * language: string, checkAvailability: string, queryResume: {nights: string, night: string, typeOfRooms: string},
+ * to: string, checkOut: string, selectAHotel: string}, es: {checkIn: string, languages: {spanish: string, english: string},
+ * noResultsWarning: {beforeSearch: string, afterSearch: string}, hotel: string, from: string, language: string, checkAvailability: string,
+ * queryResume: {nights: string, night: string, typeOfRooms: string}, to: string, checkOut: string, selectAHotel: string}},
+ * HOTELS: [{code: string, name: string}, {code: string, name: string}], CURRENT_LANGUAGE_COPYS:{copys: {checkIn: string,
+ * languages: {spanish: string, english: string}, noResultsWarning: {beforeSearch: string, afterSearch: string}, hotel: string,
+ * from: string, language: string, checkAvailability: string, queryResume: {nights: string, night: string, typeOfRooms: string},
+ * to: string, checkOut: string, selectAHotel: string}, language: string}, EMPTY_STORE: {hotelReducerGetHotelList: {hotels: *[]},
+ * translationReducerGetTranslations: {translations: null}, translationReducerGetCurrentLanguage: {copys: null, language: null},
+ * hotelReducerGetAvailableRooms: {rooms: *[]}}}, FILTER_ELEMENTS: {STATE: {hotelSelected: boolean, checkOutDate: moment.Moment,
+ * error: boolean, checkInDate: moment.Moment}, COPYS: {firstDatePickerLabel: string, dropdownLabel: string,
+ * secondDatePickerLabel: string, buttonLabel: string}, PROPS: {onSendAvailability: jest.Mock}},
+ * ROOM_LIST: {SEARCH_QUERY: {hotelSelected: string, checkOutDate: moment.Moment, checkInDate: moment.Moment}},
+ * MOCKS: {SPANISH_COPYS: {copys: {checkIn: string, languages: {spanish: string, english: string},
+ * noResultsWarning: {beforeSearch: string, afterSearch: string}, hotel: string, from: string, language: string, checkAvailability: string,
+ * queryResume: {nights: string, night: string, typeOfRooms: string}, to: string, checkOut: string, selectAHotel: string},
+ * language: string}}}}
+ */
 const TESTING_CONSTANTS = {
     STORE,
     MOCKS,

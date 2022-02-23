@@ -4,6 +4,8 @@ import HotelSagas from './HotelSagas';
 import TranslationsSagas from './TranslationSagas';
 
 /**
+ * @function
+ * @generator
  * Contiene el listado de sagas (middlewares) que se ejecutan en la aplicaicon.
  * @description Para mas informacion:
  * @see Ver constantes disponibles: {@link REDUX_CONSTANTS}

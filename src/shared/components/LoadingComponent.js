@@ -42,7 +42,7 @@ const StyledCircularProgress = styled(CircularProgress)`
  * // Circular con 100px de alto
  * <LoadingComponent type={"circular"} size={100}></LoadingComponent>
  * <LoadingComponent size={100}></LoadingComponent>
- * @constructor
+ * @function
  */
 function LoadingComponent({ type, size }) {
     if (type === 'linear') {

@@ -8,7 +8,7 @@ import { translationReducerGetCurrentLanguage, translationReducerGetTranslations
  * @description {@link hotelReducerGetAvailableRooms} - Reducer que obtiene la lista de habitaciones disponibles
  * @description {@link translationReducerGetTranslations} - Reducer que obtiene los copys de todos los paises
  * @description {@link translationReducerGetCurrentLanguage} - Reducer que obtiene los copys de un pais en especifico
- * @namespace
+ *  @const
  */
 const reducerList = combineReducers({
     hotelReducerGetHotelList,

@@ -3,7 +3,11 @@ import { useSelector } from 'react-redux';
 import COLORS from '../../../config/Colors';
 import Room from './Room';
 
-export const InformationParagraph = styled.p`
+/**
+ * Muestra con estilos el parrafo donde pintamos la queryText; un texto resumen con las fechas seleccionadas y la diferencia entre fechas.
+ * @type {StyledComponent<"p", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
+export const QueryText = styled.p`
   color: ${COLORS.BLACK};
   font-size: 1.2rem;
   font-weight: 500;
@@ -18,6 +22,10 @@ export const StyledRoomList = styled.div`
   align-items: center;
 `;
 
+/**
+ * Muestra con estilos el contenedor que contendra una lista de {@link Room}
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 export const List = styled.div`
   width: 100%;
   display: flex;
@@ -27,21 +35,38 @@ export const List = styled.div`
 `;
 
 /**
- * Pinta cada una de las habitaciones extraidas de la roomList
- * @param roomList {RoomDTO[]}
- * @returns {JSX.Element<Room> | []}
+ * Renderiza cada una de las habitaciones extraidas de la roomList
+ * @param roomList {Array.<RoomDTO>}
+ * @returns {JSX.Element<Room> | Array}
  */
 const getRooms = (roomList) => roomList.map((roomData, roomIndex) => (
     <Room key={roomIndex.toString()} roomData={roomData} />
 ));
 
 /**
- * Pinta la query utilizada en la busqueda de forma comprensible y la lista de habitaciones con sus detalles-
+ * Renderiza {@link QueryText}, que resume la query enviada y la lista de habitaciones obtenidas de firebase
  * @param props {{
- *     roomList: RoomDTO[]
- * }}
+ *         roomList: Array.<RoomDTO>,
+ *         searchQuery: {
+ *             hotelSelected: string,
+ *             checkInDate: moment.Moment,
+ *             checkOutDate: moment.Moment,
+ *         }
+ * }} - **roomList** seria el listado de habitaciones a mostrar y **searchQuery** un objeto que contiene el hotel seleccionado,
+ * la fechad e entrada y de salida (en moment.js).
+ *
+ * @example
+ * const roomArray = [RoomDTO, RoomDTO];
+ *
+ * <RoomsList roomList={roomArray}
+ *            searchQuery={{
+ *                   hotelSelected:"Hotel", // Nombre del hotel
+ *                   checkInDate:"fecha(moment)", // Fecha check in moment
+ *                   checkOutDate:"fecha(moment)" // Fecha check out moment
+ *            }}
+ * />
  * @returns {JSX.Element<StyledRoomList>}
- * @constructor
+ * @function
  */
 function RoomsList({ searchQuery, roomList }) {
     const copys = useSelector((state) => state.translationReducerGetCurrentLanguage.copys);
@@ -57,9 +82,9 @@ function RoomsList({ searchQuery, roomList }) {
 
     return (
         <StyledRoomList>
-            <InformationParagraph>
+            <QueryText>
                 {queryText}
-            </InformationParagraph>
+            </QueryText>
             <List>
                 {getRooms(roomList)}
             </List>

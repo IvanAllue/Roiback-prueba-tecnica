@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: shared/components/NoResultsComponent.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: shared/components/NoResultsComponent.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import SearchIcon from '@mui/icons-material/Search';
+import styled from 'styled-components';
+import COLORS from '../../config/Colors';
+
+const SearchFailedContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 25rem;
+`;
+
+const SearchFailedIcon = styled(SearchIcon)`
+  font-size: 12rem !important;
+  color: ${COLORS.LIGHT_GREY};
+`;
+
+const SearchFailedTitle = styled.p`
+  color: ${COLORS.BLACK};
+  margin: 0;
+  font-size: 1.6rem;
+`;
+
+const SearchFailedSubtitle = styled.p`
+  color: ${COLORS.GREY};
+  font-size: 1.2rem;
+  text-align: center;
+  margin-top: 1rem;
+`;
+
+/**
+ * Muestra un elemento configurable que indica que no hay hoteles. Se puede cambiar el titulo y subtitulo para
+ * notificar el motivo.
+ * @param props {{
+ *     title: string;
+ *     subtitle:string;
+ * }}
+ * @returns {JSX.Element&lt;SearchFailedContainer>}
+ * @constructor
+ * @example
+ * &lt;SearchFailed
+ *      title={"Texto mas grande bajo la lupa"}
+ *      subtitle={"Texto mas pequeñito y explicativo"}
+ * />
+ *
+ * @function
+ */
+function SearchFailed(props = {
+    title: '',
+    subtitle: '',
+}) {
+    return (
+        &lt;SearchFailedContainer>
+            &lt;SearchFailedIcon />
+            &lt;SearchFailedTitle>
+                {props.title}
+            &lt;/SearchFailedTitle>
+            &lt;SearchFailedSubtitle>
+                {props.subtitle}
+            &lt;/SearchFailedSubtitle>
+        &lt;/SearchFailedContainer>
+    );
+}
+
+export default SearchFailed;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="BreakdownDTO.html">BreakdownDTO</a></li><li><a href="HotelDTO.html">HotelDTO</a></li><li><a href="HotelSearchList.html">HotelSearchList</a></li><li><a href="RateDTO.html">RateDTO</a></li><li><a href="RoomDTO.html">RoomDTO</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#COLORS">COLORS</a></li><li><a href="global.html#database">database</a></li><li><a href="global.html#Devuelvelossagasconlosquepodemosobtener%257B@linkHotelDTO%257Chotels%257Dy%257B@linkRoomDTO%257Crooms%257D">Devuelve los sagas con los que podemos obtener {@link HotelDTO|hotels} y {@link RoomDTO|rooms}</a></li><li><a href="global.html#dropdownOptions">dropdownOptions</a></li><li><a href="global.html#EjecutaunapreticionaFirebasesolicitandoelpath(laquery)rooms.">Ejecuta una preticion a Firebase solicitando el path (la query) rooms.</a></li><li><a href="global.html#Fare">Fare</a></li><li><a href="global.html#FiltersContainer">FiltersContainer</a></li><li><a href="global.html#getDataFromFirebase">getDataFromFirebase</a></li><li><a href="global.html#getFareList">getFareList</a></li><li><a href="global.html#getRooms">getRooms</a></li><li><a href="global.html#getTranslations">getTranslations</a></li><li><a href="global.html#hotelReducerGetAvailableRooms">hotelReducerGetAvailableRooms</a></li><li><a href="global.html#hotelReducerGetHotelList">hotelReducerGetHotelList</a></li><li><a href="global.html#LanguageSelector">LanguageSelector</a></li><li><a href="global.html#List">List</a></li><li><a href="global.html#LoadingComponent">LoadingComponent</a></li><li><a href="global.html#LoadingContainer">LoadingContainer</a></li><li><a href="global.html#mapDispatchToProps">mapDispatchToProps</a></li><li><a href="global.html#mapStateToProps">mapStateToProps</a></li><li><a href="global.html#materialTheme">materialTheme</a></li><li><a href="global.html#Obtienelalistadehotelesdefirebasequeseleeranenelreducer:%257B@linkhotelReducerGetHotelList%257D">Obtiene la lista de hoteles de firebase que se leeran en el reducer: {@link hotelReducerGetHotelList}</a></li><li><a href="global.html#Obtienelalistaderoomsdefirebasequeseleeranenelreducer:%257B@linkhotelReducerGetAvailableRooms%257D">Obtiene la lista de rooms de firebase que se leeran en el reducer: {@link hotelReducerGetAvailableRooms}</a></li><li><a href="global.html#onSendAvailability-Seejecutaalpulsarelbotoncheckavailabilityyenvia(solosisehaseleccionadounhotel)elhotelseleccionado(string)checkinycheckout(moment).">onSendAvailability - Se ejecuta al pulsar el boton check availability y envia (solo si se ha seleccionado un hotel) el hotel
+seleccionado (string) check in y check out (moment).</a></li><li><a href="global.html#QueryText">QueryText</a></li><li><a href="global.html#reducerList">reducerList</a></li><li><a href="global.html#REDUX_CONSTANTS">REDUX_CONSTANTS</a></li><li><a href="global.html#Room">Room</a></li><li><a href="global.html#RoomName">RoomName</a></li><li><a href="global.html#RoomsList">RoomsList</a></li><li><a href="global.html#SearchFailed">SearchFailed</a></li><li><a href="global.html#Store">Store</a></li><li><a href="global.html#StyledRoom">StyledRoom</a></li><li><a href="global.html#TESTING_CONSTANTS">TESTING_CONSTANTS</a></li><li><a href="global.html#translationReducerGetCurrentLanguage">translationReducerGetCurrentLanguage</a></li><li><a href="global.html#translationReducerGetTranslations">translationReducerGetTranslations</a></li><li><a href="global.html#TranslationsSagas">TranslationsSagas</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Feb 23 2022 20:16:20 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

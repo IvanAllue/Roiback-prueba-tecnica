@@ -57,7 +57,7 @@ function dropdownOptions(params) {
 }
 
 /**
- *
+ * Renderiza un dropdown configurable hecho con Material UI.
  * @param props {{
  *     error: boolean;
  *     label: string;
@@ -66,7 +66,18 @@ function dropdownOptions(params) {
  *     options: {code: string; name:string;}[]
  * }} - Opciones configurables del Dropdown.
  * @returns {JSX.Element<StyledFormControl>} - Dropdown de Material UI con estilos.
- * @constructor
+ * @event onOptionSelected - Opcion seleccionada, para acceder a los datos ves a event.target.value
+ * @example
+ *  const options = [{code:"valor a recibir", name:"valor a mostrar"}];
+ *
+ *  <Dropdown
+ *      options={options} // Opciones a mostrar en la lista
+ *      label={"Texto a mostrar en la label"} // Texto de la label
+ *      onOptionSelected={function()} // Funcion a ejecutar cuando se selecciona una opcion
+ *      value={"Codigo marcado por defecto"} // Valor inicial del dropdown.
+ *      error={true/false} // Si es true se mostrara rodeado en rojo
+ * />
+ * @function
  */
 function Dropdown({
     value, onOptionSelected, label, error, options,

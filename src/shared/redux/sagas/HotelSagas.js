@@ -3,6 +3,7 @@ import { getDataFromFirebase } from '../../firebase';
 import REDUX_CONSTANTS from '../constants/constants';
 
 /**
+ * @function
  * Obtiene la lista de hoteles de firebase que se leeran en el reducer: {@link hotelReducerGetHotelList}
  * @generator
  * @see Ver constantes disponibles: {@link REDUX_CONSTANTS}
@@ -13,6 +14,7 @@ function* getHotels() {
 }
 
 /**
+ * @function
  *  Obtiene la lista de rooms de firebase que se leeran en el reducer: {@link hotelReducerGetAvailableRooms}
  * @generator
  * @see Ver constantes disponibles: {@link REDUX_CONSTANTS}
@@ -23,6 +25,7 @@ function* getRooms() {
 }
 
 /**
+ * @function
  * Devuelve los sagas con los que podemos obtener {@link HotelDTO|hotels} y {@link RoomDTO|rooms}
  * @type {{getHotels: ((function(): Generator<*, void, *>)|*),
  * getRooms: ((function(): Generator<SimpleEffect<"CALL", CallEffectDescriptor<DataSnapshot>>, void, *>)|*)}}

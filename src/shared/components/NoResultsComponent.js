@@ -36,6 +36,13 @@ const SearchFailedSubtitle = styled.p`
  * }}
  * @returns {JSX.Element<SearchFailedContainer>}
  * @constructor
+ * @example
+ * <SearchFailed
+ *      title={"Texto mas grande bajo la lupa"}
+ *      subtitle={"Texto mas pequeñito y explicativo"}
+ * />
+ *
+ * @function
  */
 function SearchFailed(props = {
     title: '',

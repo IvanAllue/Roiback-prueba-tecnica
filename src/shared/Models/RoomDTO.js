@@ -1,6 +1,7 @@
 import RateDTO from './RateDTO';
 
 /**
+ * @class
  * Room object
  * @property {string} roomName - Nombre de la habitacion
  * @property {RateDTO} roomRateList - Lista de rates de la habitacion

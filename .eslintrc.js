@@ -31,7 +31,7 @@ module.exports = {
         'no-whitespace-before-property': 'error',
         camelcase: 'error',
         'new-cap': 'error',
-        'no-console': 'error',
+        'no-console': 0,
         'comma-dangle': 'error',
         'react/prop-types': 0,
         'default-param-last': 0,

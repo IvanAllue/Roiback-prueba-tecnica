@@ -17,27 +17,22 @@ const Results = styled.div`
   }
 `;
 
-const LoadingContainer = styled.div`
-  margin: 5px
-`;
-
 /**
- * Componente para buscar habitaciones el los hoteles obtenidos por backend y muestra la respuesta obtenida.
+ * Componente con el filtro para buscar habitaciones {@link FilterElements}. Muestra el resultado: {@link Results} o, si la busqueda
+ * falla o no se ha hecho ninguna muestra {@link SearchFailed}.
+ * @description (Requiere acceso al Storage).
  * @class
- * @property onSendAvailability - {@link onSendAvailability}
- * @property getResultsComponent - {@link getResultsComponent}
- * @property render - {@link render}
+ * @example
+ * <HotelSearchList />
  */
 class HotelSearchList extends Component {
-    /** @lends HotelSearchList.prototype */
     /**
      * @constructor
      * @param props {{
      *      copys: any;
      *      getAvailableRooms: function();
-     *      getHotels: function();
-     *      hotels: HotelDTO[];
-     *      rooms: RoomDTO[];
+     *      hotels: Array.<HotelDTO>;
+     *      rooms: Array.<RoomDTO>;
      * }}
      */
     constructor(props) {
@@ -47,11 +42,6 @@ class HotelSearchList extends Component {
             loading: false,
             searchQuery: null,
         };
-    }
-
-    componentDidMount() {
-        const { props } = this;
-        props.getHotels();
     }
 
     /**
@@ -130,7 +120,7 @@ class HotelSearchList extends Component {
     }
 
     /**
-     * Muestra los componentes en pantalla.
+     * Renderiza HotelSearchList
      * @method
      * @example:
      * Caso 1: No hay hoteles o traducciones en el store (props.hotels): Mostramos spinner
@@ -167,11 +157,7 @@ class HotelSearchList extends Component {
 
             );
         }
-        return (
-            <LoadingContainer id="linearLoading">
-                <LoadingComponent type="linear" size={7} />
-            </LoadingContainer>
-        );
+        return (<div />);
     }
 }
 
@@ -191,14 +177,13 @@ const mapStateToProps = (state) => ({
 });
 
 /**
- * Inyecta en los props del componente los dispatch de los sagas: {@link getHotels} y {@link getAvailableRooms}
+ * Inyecta en los props del componente los dispatch del saga {@link getAvailableRooms}
  * @param dispatch
- * @returns {{getHotels: (function(): *), getAvailableRooms: (function(): *)}}
+ * @returns {{ getAvailableRooms: (function(): *)}}
  *
  * @see - Types disponibles: {@link REDUX_CONSTANTS}
  */
 const mapDispatchToProps = (dispatch) => ({
-    getHotels: () => dispatch({ type: REDUX_CONSTANTS.GET_HOTELS }),
     getAvailableRooms: () => dispatch({ type: REDUX_CONSTANTS.GET_AVAILABLE_ROOMS }),
 });
 

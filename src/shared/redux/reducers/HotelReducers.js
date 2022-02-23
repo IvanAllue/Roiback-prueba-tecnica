@@ -10,11 +10,11 @@ import RoomDTO from '../../Models/RoomDTO';
  *
  * @param action {{type: REDUX_CONSTANTS, [hotels]: any[]}} - Accion de redux. Action debe contener hotels cuando viene del saga.
  *
- * @returns  {{hotels: [] | HotelDTO[]}} - Devuelve un array vacio por defecto o el listado de hoteles tras obtenerlos
+ * @returns  {{hotels: [] | Array.<HotelDTO>}} - Devuelve un array vacio por defecto o el listado de hoteles tras obtenerlos
  * de firebase.
  *
  * @see Ver constantes disponibles: {@link REDUX_CONSTANTS}
- *
+ * @const
  *
  */
 export const hotelReducerGetHotelList = (state = { hotels: [] }, action) => {
@@ -37,6 +37,7 @@ export const hotelReducerGetHotelList = (state = { hotels: [] }, action) => {
  * @returns  {{rooms: [] | RoomDTO[]}} - Devuelve un array vacio por defecto o el listado de habitaciones si hemos
  * obtenido los datos de firebase.
  *
+ * @const
  *  @see Ver constantes disponibles: {@link REDUX_CONSTANTS}
  */
 export const hotelReducerGetAvailableRooms = (state = { rooms: [] }, action) => {

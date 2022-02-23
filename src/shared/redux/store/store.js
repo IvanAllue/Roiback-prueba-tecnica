@@ -6,8 +6,9 @@ import sagaGenerator from '../sagas/sagas';
 const sagaMiddleware = createSagaMiddleware();
 
 /**
+ * @const
  * Store con los reducers listados en: {@link reducerList} y los sagas listados en {@link sagaGenerator}.
- * @type {Store<EmptyObject & StateFromReducersMapObject<{hotelReducerGetHotelList: function(): {hotels: HotelDTO[]},
+ * @type {Store<EmptyObject & StateFromReducersMapObject<{hotelReducerGetHotelList: function(): {hotels: Array.<HotelDTO>},
  * hotelReducerGetAvailableRooms: function(*=, *): {rooms: *[]}}> & S, A> & Store<S, A> & {dispatch: {}}}
  */
 const store = createStore(reducerList, applyMiddleware(sagaMiddleware));

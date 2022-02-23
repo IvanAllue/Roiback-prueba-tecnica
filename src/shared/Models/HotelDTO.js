@@ -1,5 +1,6 @@
 /**
  * Objeto HotelDTO
+ * @class
  * @param attributes {{
  *     code: string;
  *     name: string;

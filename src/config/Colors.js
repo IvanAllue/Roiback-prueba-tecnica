@@ -9,6 +9,19 @@ const RED = '#f44336';
 const LIGHT_GREY = '#E1E1E1';
 const GREY = '#ACACAC';
 
+/**
+ * Constante con los colores configurados para modificar facilmente el tema de la aplicacion.
+ * @const
+ * @type {{
+ * RED: string,
+ * LIGHT_GREY: string,
+ * PRIMARY_COLOR_DISABLED: string,
+ * PRIMARY_COLOR: string,
+ * BLACK: string,
+ * GREY: string,
+ * PRIMARY_COLOR_LIGHT: string
+ * }}
+ */
 const COLORS = {
     PRIMARY_COLOR,
     PRIMARY_COLOR_LIGHT,

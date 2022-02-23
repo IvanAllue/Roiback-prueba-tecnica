@@ -5,6 +5,10 @@ import Button from './Button';
 import Dropdown from './Dropdown';
 import RoibackDatePicker from './RoibackDatePicker';
 
+/**
+ * Contenedor de los filtros. Centra los componentes, diseño responsive.
+ * @type {StyledComponent<"div", AnyIfEmpty<DefaultTheme>, {}, never>}
+ */
 const FiltersContainer = styled.div`
   display: flex;
   align-items: center;
@@ -19,19 +23,23 @@ const FiltersContainer = styled.div`
 `;
 
 /**
- * Devuelve un sistema de filtrado configurable que consta de 1 dropdown, 2 datePicker y 1 boton para confirmar cambios.
+ * Renderiza una lista de elementos parcialmente configurables que constan de:
+ * @description 1 x Dropdown: {@link Dropdown}
+ * @description 2 x DatePicker: {@link RoibackDatePicker}
+ * @description 1 x Boton: {@link Button}
  * @param props {{
  *     onSendAvailability: function(),
- *     hotels: {code: string; name: string} [],
+ *     hotels: Array.<{code: string; name: string}>,
  *     [copys]:{
  *          dropdownLabel: string;
  *          firstDatePickerLabel: string;
  *          secondDatePickerLabel:  string;
  *          buttonLabel:  string;
  *     }
- * }} - Hoteles a mostrar en el dropdown y funcion a ejecutar cuando se pulsa el boton.
+ * }} - Textos de las labels, hoteles a mostrar en el dropdown y funcion a ejecutar cuando se pulsa el boton.
  * @returns {JSX.Element<FiltersContainer>}
- * @event onSendAvailability - Se ejecuta al pulsar el boton check availability.
+ * @event onSendAvailability - Se ejecuta al pulsar el boton check availability y envia (solo si se ha seleccionado un hotel) el hotel
+ * seleccionado (string) check in y check out (moment).
  * @constructor*
  * @example
  * //Filtros SIN copys:
@@ -43,6 +51,7 @@ const FiltersContainer = styled.div`
  *                       secondDatePickerLabel: "Label 2º Datepicker",
  *                       buttonLabel: "Texto boton",
  * }}/>
+ * @function
  *
  */
 function FilterElements({ copys, hotels, onSendAvailability }) {

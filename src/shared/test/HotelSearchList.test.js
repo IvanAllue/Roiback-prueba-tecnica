@@ -20,35 +20,6 @@ describe('Hotel search list validaciones', () => {
     });
 
     /**
-     * Validacion hotelSearchList se renderiza
-     */
-    it('Validacion hotelSearchList se renderiza', () => {
-        render(
-            <Provider store={store}>
-                <HotelSearchList />
-            </Provider>,
-        );
-        expect(screen.getByRole('progressbar')).toBeInTheDocument();
-    });
-
-    /**
-     * Validacion hotelSearchList renderiza progress bar si solo tiene copys
-     */
-    it('Validacion hotelSearchList renderiza progress bar si solo tiene copys', () => {
-        const newStore = TESTING_CONSTANTS.STORE.EMPTY_STORE;
-        newStore.translationReducerGetCurrentLanguage = TESTING_CONSTANTS.STORE.CURRENT_LANGUAGE_COPYS;
-        store = mockStore(newStore);
-        render(
-            <Provider store={store}>
-                <HotelSearchList />
-            </Provider>,
-        );
-
-        const linearLoading = screen.getByRole('progressbar');
-        expect(linearLoading).toBeInTheDocument();
-    });
-
-    /**
      * Validacion hotelSearchList renderiza NoResultsComponent si tiene COPYS y HOTELS pero no rooms.
      * Esto ocurriria antes de ralizar una busqueda.
      */

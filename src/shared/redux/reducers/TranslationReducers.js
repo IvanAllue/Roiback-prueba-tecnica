@@ -10,7 +10,7 @@ import REDUX_CONSTANTS from '../constants/constants';
  * cuando venga del saga.
  *
  * @returns  {{translations: [] | any[]}} - Devuelve null por defecto o las traducciones es o en cuando viene del saga
- *
+ * @const
  * @see Ver constantes disponibles: {@link REDUX_CONSTANTS}
  *
  *
@@ -40,7 +40,7 @@ export const translationReducerGetTranslations = (state = { translations: null }
  *         en: any;
  *     }
  * }}} - Accion de redux. En data obtiene todos los textos traducidos y el idioma en especifico deseado.
- *
+ * @const
  * @returns  {{
  * copys: any;
  * language: string;

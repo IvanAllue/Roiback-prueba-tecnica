@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: App.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: App.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import './App.css';
+import { connect } from 'react-redux';
+import styled from 'styled-components';
+import { Component } from 'react';
+import REDUX_CONSTANTS from './shared/redux/constants/constants';
+import Dropdown from './shared/components/Dropdown';
+import LoadingComponent from './shared/components/LoadingComponent';
+import HotelSearchList from './containers/hotel-search/HotelSearchList';
+
+/**
+ * Renderiza el contenedor del dropdown para seleccionar idiomas.
+ * @description En el dropdown, si no se ha seleccionado ningun idioma (Estado inicial), se seleccionara el idioma del navegador
+ * por defecto.
+ * @type {StyledComponent&lt;"div", AnyIfEmpty&lt;DefaultTheme>, {}, never>}
+ */
+const LanguageSelector = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  padding: 1rem;
+`;
+
+/**
+ * Renderizxa el contenedor de la linea de progreso (Cargando)
+ * @type {StyledComponent&lt;"div", AnyIfEmpty&lt;DefaultTheme>, {}, never>}
+ */
+const LoadingContainer = styled.div`
+  margin: 5px
+`;
+
+/**
+ * Se conecta con el store para obtener las traducciones de firebase y los copys. Despues renderiza {@link HotelSearchList} y un dropdown
+ * selector de idiomas: {@link LanguageSelector}
+ * @class
+ * @returns {JSX.Element} - Elementos JSX que, en resumen, forman toda la aplicacion.
+ * @see - Listado de constantes redux: {@link REDUX_CONSTANTS}
+ */
+class App extends Component {
+    /**
+     * Constructor
+     * @description Obtiene los states asi como los dispartch del store y ejecuta el dispatch: {@link translationReducerGetTranslations}
+     * @method
+     * @param props {{
+     *   rooms: Array|Array.&lt;RoomDTO>,
+     *  hotels: Array|Array.&lt;{code: string, name: string}>,
+     *  translations: any,
+     *  copys: any,
+     *  getTranslations: function(),
+     *  getHotels: function()
+     * }}
+     *
+     * @see {@link REDUX_CONSTANTS}
+     */
+    constructor(props) {
+        super(props);
+        props.getTranslations();
+        props.getHotels();
+    }
+
+    /**
+     * comprueba que sea necesario obtener la lista de copys y de ser asi lanza: {@link translationReducerGetCurrentLanguage }
+     * @see {@link REDUX_CONSTANTS}
+     */
+    componentDidUpdate() {
+        const { props } = this;
+        if (props &amp;&amp; props.translations &amp;&amp; !props.translatedCopys.copys) {
+            props.getCopys({
+                translations: props.translations,
+                language: props.language ? props.language : navigator.language,
+            });
+        }
+    }
+
+    /**
+     * crea las opciones del dropdown para elegir paises segun los idiomas de firebase.
+     * @returns {Array.&lt;{code: string, name:string}>} - Opciones del dropdown donde code sera el codigo del idioma seleccionado y name
+     * su nombre.
+     */
+    getDropdownOptionsByTranslations() {
+        const { translations, translatedCopys } = this.props;
+        const dropdownOptions = [];
+        Object.keys(translations).forEach((translationCountry) => {
+            switch (translationCountry) {
+            case 'en':
+                dropdownOptions.push({
+                    code: 'en-EN', name: translatedCopys.copys.languages.english,
+                });
+                break;
+            case 'es':
+                dropdownOptions.push({
+                    code: 'es-ES', name: translatedCopys.copys.languages.spanish,
+                });
+                break;
+            default:
+            }
+        });
+
+        return dropdownOptions;
+    }
+
+    /**
+     * Metodo que se ejecuta en {@link LanguageSelector} cada vez que se selecciona un nuevo idioma, lanzando el reducer
+     * {@link translationReducerGetCurrentLanguage} con el nuevo idioma.
+     * @param dropdownOptionSelected - Opcion del dropdown seleccionada.
+     */
+    onSelectOtherLanguage = (dropdownOptionSelected) => {
+        const { props } = this;
+        props.getCopys({
+            translations: props.translations,
+            language: dropdownOptionSelected.target.value,
+        });
+    };
+
+    /**
+     * Renderiza el selector de lenguajes siempre que se den las condiciones adecuadas (Hotels, translations y copus).
+     * Sino renderiza {@link LoadingContainer}.
+     * @returns {JSX.Element|*}
+     */
+    showLanguageSelector = () => {
+        const dropdownOptions = this.getDropdownOptionsByTranslations();
+        const { translatedCopys } = this.props;
+
+        return (
+            &lt;LanguageSelector>
+                &lt;Dropdown
+                  options={dropdownOptions}
+                  label={translatedCopys.copys.language}
+                  onOptionSelected={this.onSelectOtherLanguage}
+                  value={translatedCopys.language}
+                />
+            &lt;/LanguageSelector>
+        );
+    };
+
+    /**
+     * Renderiza App.
+     * @returns {JSX.Element}
+     */
+    render() {
+        const { translations, translatedCopys, hotels } = this.props;
+        if (
+            translations &amp;&amp; translatedCopys &amp;&amp; translatedCopys.copys &amp;&amp; hotels.length > 0
+        ) {
+            return (
+                &lt;div>
+                    {this.showLanguageSelector()}
+                    &lt;HotelSearchList />
+                &lt;/div>
+            );
+        }
+        return (
+            &lt;LoadingContainer id="linearLoading">
+                &lt;LoadingComponent type="linear" size={7} />
+            &lt;/LoadingContainer>
+        );
+    }
+}
+
+/**
+ * Obtiene del Store los hoteles, copys, traducciones y rooms.
+ * @param state {{
+ *      hotelReducerGetHotelList: {hotels: Array |Array.&lt;HotelDTO>},
+ *      hotelReducerGetAvailableRooms: {rooms: Array |Array.&lt;RoomsDTO>},
+ *      translationReducerGetTranslations: {translations: any},
+ *      translationReducerGetCurrentLanguage: {copys: any},
+ * }}
+ * @returns {{
+ * rooms: Array|Array.&lt;RoomDTO>,
+ * hotels: Array|Array.&lt;{code: string, name: string}>,
+ * translations: any,
+ * copys: any}}
+ * @see - Listado de reducers: {@link reducerList}
+ */
+const mapStateToProps = (state) => ({
+    hotels: state.hotelReducerGetHotelList.hotels,
+    rooms: state.hotelReducerGetAvailableRooms.rooms,
+    translatedCopys: state.translationReducerGetCurrentLanguage,
+    translations: state.translationReducerGetTranslations.translations,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+    getTranslations: () => dispatch({ type: REDUX_CONSTANTS.GET_TRANSLATIONS }),
+    getCopys: ({ translations, language }) => dispatch({
+        type: REDUX_CONSTANTS.GET_CURRENT_LANGUAGE_COPYS,
+        data: {
+            translations,
+            language,
+        },
+    }),
+    getHotels: () => dispatch({ type: REDUX_CONSTANTS.GET_HOTELS }),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Classes</h3><ul><li><a href="App.html">App</a></li><li><a href="BreakdownDTO.html">BreakdownDTO</a></li><li><a href="HotelDTO.html">HotelDTO</a></li><li><a href="HotelSearchList.html">HotelSearchList</a></li><li><a href="RateDTO.html">RateDTO</a></li><li><a href="RoomDTO.html">RoomDTO</a></li></ul><h3>Global</h3><ul><li><a href="global.html#Button">Button</a></li><li><a href="global.html#COLORS">COLORS</a></li><li><a href="global.html#database">database</a></li><li><a href="global.html#Devuelvelossagasconlosquepodemosobtener%257B@linkHotelDTO%257Chotels%257Dy%257B@linkRoomDTO%257Crooms%257D">Devuelve los sagas con los que podemos obtener {@link HotelDTO|hotels} y {@link RoomDTO|rooms}</a></li><li><a href="global.html#dropdownOptions">dropdownOptions</a></li><li><a href="global.html#EjecutaunapreticionaFirebasesolicitandoelpath(laquery)rooms.">Ejecuta una preticion a Firebase solicitando el path (la query) rooms.</a></li><li><a href="global.html#Fare">Fare</a></li><li><a href="global.html#FiltersContainer">FiltersContainer</a></li><li><a href="global.html#getDataFromFirebase">getDataFromFirebase</a></li><li><a href="global.html#getFareList">getFareList</a></li><li><a href="global.html#getRooms">getRooms</a></li><li><a href="global.html#getTranslations">getTranslations</a></li><li><a href="global.html#hotelReducerGetAvailableRooms">hotelReducerGetAvailableRooms</a></li><li><a href="global.html#hotelReducerGetHotelList">hotelReducerGetHotelList</a></li><li><a href="global.html#LanguageSelector">LanguageSelector</a></li><li><a href="global.html#List">List</a></li><li><a href="global.html#LoadingComponent">LoadingComponent</a></li><li><a href="global.html#LoadingContainer">LoadingContainer</a></li><li><a href="global.html#mapDispatchToProps">mapDispatchToProps</a></li><li><a href="global.html#mapStateToProps">mapStateToProps</a></li><li><a href="global.html#materialTheme">materialTheme</a></li><li><a href="global.html#Obtienelalistadehotelesdefirebasequeseleeranenelreducer:%257B@linkhotelReducerGetHotelList%257D">Obtiene la lista de hoteles de firebase que se leeran en el reducer: {@link hotelReducerGetHotelList}</a></li><li><a href="global.html#Obtienelalistaderoomsdefirebasequeseleeranenelreducer:%257B@linkhotelReducerGetAvailableRooms%257D">Obtiene la lista de rooms de firebase que se leeran en el reducer: {@link hotelReducerGetAvailableRooms}</a></li><li><a href="global.html#onSendAvailability-Seejecutaalpulsarelbotoncheckavailabilityyenvia(solosisehaseleccionadounhotel)elhotelseleccionado(string)checkinycheckout(moment).">onSendAvailability - Se ejecuta al pulsar el boton check availability y envia (solo si se ha seleccionado un hotel) el hotel
+seleccionado (string) check in y check out (moment).</a></li><li><a href="global.html#QueryText">QueryText</a></li><li><a href="global.html#reducerList">reducerList</a></li><li><a href="global.html#REDUX_CONSTANTS">REDUX_CONSTANTS</a></li><li><a href="global.html#Room">Room</a></li><li><a href="global.html#RoomName">RoomName</a></li><li><a href="global.html#RoomsList">RoomsList</a></li><li><a href="global.html#SearchFailed">SearchFailed</a></li><li><a href="global.html#Store">Store</a></li><li><a href="global.html#StyledRoom">StyledRoom</a></li><li><a href="global.html#TESTING_CONSTANTS">TESTING_CONSTANTS</a></li><li><a href="global.html#translationReducerGetCurrentLanguage">translationReducerGetCurrentLanguage</a></li><li><a href="global.html#translationReducerGetTranslations">translationReducerGetTranslations</a></li><li><a href="global.html#TranslationsSagas">TranslationsSagas</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.10</a> on Wed Feb 23 2022 20:16:20 GMT+0100 (hora estándar de Europa central)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

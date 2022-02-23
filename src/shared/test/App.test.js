@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { prettyDOM, render, screen } from '@testing-library/react';
 import createSagaMiddleware from 'redux-saga';
 import configureStore from 'redux-mock-store';
 import { Provider } from 'react-redux';
@@ -15,6 +15,10 @@ describe('Test del componente App', () => {
     const mockStore = configureStore([sagaMiddleware]);
     let store = mockStore(TESTING_CONSTANTS.STORE.EMPTY_STORE);
     sagaMiddleware.run(sagaGenerator);
+
+    beforeEach(() => {
+        store = mockStore(TESTING_CONSTANTS.STORE.EMPTY_STORE);
+    });
 
     /**
      * Si no falla es que se ha renderizado el componente App.
@@ -65,13 +69,14 @@ describe('Test del componente App', () => {
         const testStore = TESTING_CONSTANTS.STORE.EMPTY_STORE;
         testStore.translationReducerGetTranslations.translations = TESTING_CONSTANTS.STORE.TRANSLATIONS;
         testStore.translationReducerGetCurrentLanguage = TESTING_CONSTANTS.STORE.CURRENT_LANGUAGE_COPYS;
-
+        store = mockStore(testStore);
         render(
             <Provider store={store}>
                 <App />
             </Provider>,
         );
 
+        console.log(prettyDOM(screen.container));
         expect(screen.getByRole('progressbar')).toBeInTheDocument();
     });
 
@@ -83,6 +88,7 @@ describe('Test del componente App', () => {
         const testStore = TESTING_CONSTANTS.STORE.EMPTY_STORE;
         testStore.translationReducerGetTranslations.translations = TESTING_CONSTANTS.STORE.TRANSLATIONS;
         testStore.translationReducerGetCurrentLanguage = TESTING_CONSTANTS.STORE.CURRENT_LANGUAGE_COPYS;
+        testStore.hotelReducerGetHotelList.hotels = TESTING_CONSTANTS.STORE.HOTELS;
         store = mockStore(testStore);
         render(
             <Provider store={store}>
@@ -99,6 +105,7 @@ describe('Test del componente App', () => {
         const testStore = TESTING_CONSTANTS.STORE.EMPTY_STORE;
         testStore.translationReducerGetTranslations.translations = TESTING_CONSTANTS.STORE.TRANSLATIONS;
         testStore.translationReducerGetCurrentLanguage = TESTING_CONSTANTS.MOCKS.SPANISH_COPYS;
+        testStore.hotelReducerGetHotelList.hotels = TESTING_CONSTANTS.STORE.HOTELS;
         store = mockStore(testStore);
         render(
             <Provider store={store}>
@@ -115,6 +122,7 @@ describe('Test del componente App', () => {
         const testStore = TESTING_CONSTANTS.STORE.EMPTY_STORE;
         testStore.translationReducerGetTranslations.translations = TESTING_CONSTANTS.STORE.TRANSLATIONS;
         testStore.translationReducerGetCurrentLanguage = TESTING_CONSTANTS.STORE.CURRENT_LANGUAGE_COPYS;
+        testStore.hotelReducerGetHotelList.hotels = TESTING_CONSTANTS.STORE.HOTELS;
         store = mockStore(testStore);
         render(
             <Provider store={store}>

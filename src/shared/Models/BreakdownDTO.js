@@ -1,5 +1,6 @@
 /**
  * Rate object
+ * @class
  * @property {string} date - Nombre del Rate.
  * @property {{
  *    price: number,
