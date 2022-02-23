@@ -21,7 +21,7 @@ module.exports = {
         indent: ['error', 4, { ignoredNodes: ['JSXElement *'] }],
         'react/jsx-indent': ['warn', 4],
         'no-tabs': 0,
-        'linebreak-style': ['error', 'unix'],
+        'linebreak-style': 0,
         quotes: ['error', 'single'],
         semi: ['error', 'always'],
         'no-multi-spaces': ['error'],
