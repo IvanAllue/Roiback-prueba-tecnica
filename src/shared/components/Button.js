@@ -2,7 +2,18 @@ import styled from 'styled-components';
 import COLORS from '../../config/Colors';
 
 /**
- * Boton con estilos y hover.
+ * Boton estilado con el tema de la aplicacion.
+ * @example
+ * // Simple
+ * <Button></Button>
+ * // Con texto
+ * <Button >
+ *      Texto dentro del boton
+ * </Button>
+ * // Con texto y evento
+ * <Button onClick={function()}>
+ *       Texto dentro del boton
+ * </Button>
  */
 const Button = styled.button`
   background-color: ${COLORS.PRIMARY_COLOR};
